@@ -14,12 +14,9 @@ import 'package:edtech/Screens/support_screen.dart';
 import 'package:edtech/Screens/timetable_screen.dart';
 import 'package:edtech/Screens/voice_screen.dart';
 import 'package:edtech/Screens/wallet_screen.dart';
-import 'package:edtech/api.dart';
 import 'package:edtech/main.dart';
 import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
-import "package:edtech/Screens/signup_screen.dart";
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
@@ -32,12 +29,21 @@ class Dashboard extends StatefulWidget {
 
 class DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  @override
 
-//   Future<void> savedToken() async {
-//   // var test;
-//   SharedPreferences prefs = await MyApp.prefs;
-// }
+  String firstname = '';
+  Future<void> fetchLoggedInUser() async {
+    SharedPreferences prefs = await MyApp.prefs;
+    setState(() {
+      firstname = prefs.getString('firstname');
+    });
+    // print(firstname);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    fetchLoggedInUser();
+  }
 
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -68,7 +74,7 @@ class DashboardState extends State<Dashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget> [
-             Text('Hey Brian!',
+             Text('Hey $firstname',
                 style: GoogleFonts.poppins(fontSize: 25),
               ),
               SizedBox(height:10),

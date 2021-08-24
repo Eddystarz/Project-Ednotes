@@ -1,7 +1,12 @@
 import 'package:edtech/Screens/view_course_screen.dart';
+import 'package:edtech/main.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:edtech/graphql.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CourseScreen extends StatefulWidget {
+  static const routeName = "/course";
   @override
   CourseScreenState createState(){
     return CourseScreenState();
@@ -11,6 +16,21 @@ class CourseScreen extends StatefulWidget {
 class CourseScreenState extends State<CourseScreen>
 {
   @override
+
+
+  // String token = '';
+  // Future<void> fetchUserToken() async {
+  //   SharedPreferences prefs = await MyApp.prefs;
+  //   setState(() {
+  //     token = prefs.getString('token');
+  //   });
+  //   print(token);
+  // }
+
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   fetchUserToken();
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +135,35 @@ class CourseScreenState extends State<CourseScreen>
                     ),
 
                     SizedBox(height: 40,),
+                    // GraphQLProvider.of(context)
+                    GraphQLProvider(
+                      client: client,
+                      child: Query(
+                      options: QueryOptions(
+                        documentNode: gql(allCourses)
+                      ), 
+                      builder:  (QueryResult result,
+                            {VoidCallback refetch, FetchMore fetchMore}) {
+                                if (result.loading) {
+                                  return Text('Loading');
+                                }
+                                if (result.hasException) {
+                                print(result.exception.toString());
+                                print(MyApp.temporaryToken);
+                                return Container(
+                                  padding: EdgeInsets.only(top: 1),
+                                  child: Text(
+                                    result.exception.toString(),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              }
+                              // prefs.getString('token')
+                              print(result.data);
+                              return Text('Loading');
+                              }
+                    ),
+                    ),
                     Container(
                       decoration: BoxDecoration(
                           image: DecorationImage(
@@ -222,7 +271,7 @@ class CourseScreenState extends State<CourseScreen>
             ),
             validator: (value) {
               if (value.isEmpty) {
-                return 'Please enter your email';
+                return 'Please enter your email ';
               }
               // if(!RegExp())
               return null;

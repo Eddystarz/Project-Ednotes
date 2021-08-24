@@ -14,22 +14,30 @@ bool tokenState = false;
 
 Future<void> savedToken() async {
   // var test;
+  print('Saved Token opening');
   SharedPreferences prefs = await MyApp.prefs;
 
   // test = prefs.getString('token');
+  // print('I am calling token');
   userToken = prefs.getString('token');
+
+  MyApp.temporaryToken = userToken;
   // print('I am calling token');
   // print(userToken);
-  if(userToken != ''){ tokenState = true; }
+  if(userToken != ''){ 
+    tokenState = true;
+     MyApp.tokenTempState = true;
+  }
+
+  print(MyApp.temporaryToken);
 }
 
 Map<String, String> map = {};
 
 Map<String, String> headersTest(String authTest) {
-  if(tokenState == true) {
-     map.putIfAbsent('Authorization', () => "Bearer $authTest");
+  if(MyApp.tokenTempState == true) {
+    map.putIfAbsent('Authorization', () => "bearer ${MyApp.temporaryToken}");
   }
-
   return map;
 } 
 
@@ -41,7 +49,7 @@ Map<String, String> headersTest(String authTest) {
 
 HttpLink link = HttpLink(
   uri: 'https://ednotes.herokuapp.com/graphql/',
-   headers: headersTest(userToken)
+   headers: headersTest(MyApp.temporaryToken)
 );
 
 ValueNotifier<GraphQLClient> client = ValueNotifier(
@@ -68,20 +76,97 @@ ValueNotifier<GraphQLClient> client = ValueNotifier(
       }
     """;
 
+    String allCourses = """
+      query{
+        get_all_courses{
+          edges{
+            name
+            description,
+            _id,
+            semester
+          }
+        }
+      }
+    """;
+
+    String singleCourse = """
+      query(\$courseId: String!){
+        get_single_course(courseId: \$courseId){
+          data{
+            name
+            description,
+            _id,
+            semester
+          }
+        }
+      }
+    """;
+
+
+    String studentProfile = """
+      query{
+        student{
+          user{
+            username,
+            firstName
+          },
+          phoneNumber
+        }
+      }
+    """;
+
+    String fetchSchools = """
+      query{
+        schools{
+          name,
+          _id
+        }
+      }
+    """;
+    
+    String fetchFaculties = """
+      query{
+        faculties{
+          name,
+          _id
+        }
+      }
+    """;
+
+    String fetchLevels = """
+      query{
+        levels{
+          name,
+          _id
+        }
+      }
+    """;
+
+    String fetchDept = """
+      query{
+        depts{
+          name,
+          _id
+        }
+      }
+    """;
 
     String login = """
       mutation signIn(\$email: String!, \$password: String!) {
         login(input: {email: \$email, password: \$password}) {
-          token
+          message,
+          user{
+            firstName
+          }
         }
       }
     """;
   
 
    String studentSignup = """
-    mutation signup(\$firstName: String!, \$lastName: String!, \$phoneNumber: String!, \$username: String!, \$state: String!, \$school: String!, \$dept: String!, \$faculty: String!, \$level: String!, \$email: String!, \$password: String!) {
-      studentSignup(input: {email: \$email, password: \$password,firstName: \$firstName, lastName: \$lastName, phoneNumber: \$phoneNumber, username: \$username, state: \$state, school: \$school, dept:\$dept, level: \$level, faculty: \$faculty}) {
-        dept
+    mutation signup(\$firstName: String!, \$lastName: String!, \$phoneNumber: String!, \$username: String!, \$email: String!, \$password: String!) {
+      studentSignup(input: {firstName: \$firstName, lastName: \$lastName, phoneNumber: \$phoneNumber,username: \$username,email: \$email, password: \$password}) {
+        message,value
       }
     }
     """;

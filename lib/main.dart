@@ -1,3 +1,4 @@
+import 'package:edtech/Screens/course_screen.dart';
 import 'package:edtech/Screens/dashboard.dart';
 import 'package:edtech/Screens/signup_screen.dart';
 import 'package:edtech/Screens/welcome_screen.dart';
@@ -28,6 +29,11 @@ void main() {
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   static final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
+
+  static String temporaryToken = '';
+
+  static bool tokenTempState = false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -47,6 +53,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName : (ctx) => LoginScreen(),
         Dashboard.routeName : (ctx) => Dashboard(),
         SignUpScreen.routeName : (ctx) => SignUpScreen(),
+        CourseScreen.routeName : (ctx) => CourseScreen(),
       },
     );
   }

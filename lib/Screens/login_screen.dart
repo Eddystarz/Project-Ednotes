@@ -35,7 +35,8 @@ class LoginScreenState extends State<LoginScreen> {
 
   void _storeToken(result) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', result['login']['token']);
+    prefs.setString('token', result['login']['message']);
+    prefs.setString('firstname', result['login']['user']['firstName']);
   }
 
   @override
@@ -53,22 +54,23 @@ class LoginScreenState extends State<LoginScreen> {
                 child: Mutation(
                   options: MutationOptions(
                       onCompleted: (result) {
-                        // print(result);
+                        print(result);
                         if (result != null &&
-                            result['login']['token'] != null) {
+                            result['login']['message'] != null && result['login']['message']) {
                           _storeToken(result);
                           savedToken();
-
+                          setState(() {
+                            loading = false;
+                          });
                           Navigator.of(context)
                               .pushReplacementNamed(Dashboard.routeName);
                         } else {
                           passwordController.text = '';
-
+                          setState(() {
+                            loading = false;
+                          });
                           return _errorDialog();
                         }
-                        setState(() {
-                          loading = false;
-                        });
                       },
                       documentNode: gql(login)),
                   builder: (RunMutation insert, QueryResult result) {
@@ -76,7 +78,7 @@ class LoginScreenState extends State<LoginScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Let\'s sign you in, $argument',
+                          'Let\'s sign you in,',
                           style: GoogleFonts.poppins(
                               color: Colors.white,
                               fontSize: 30,
@@ -241,7 +243,7 @@ class LoginScreenState extends State<LoginScreen> {
                                       });
                                       // return Text('Welcome');
                                       print('stsring');
-                                      print(result);
+                                      // print(result['login']['message']);
                                       print('Ending');
                                     },
                                   )),
