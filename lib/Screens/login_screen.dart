@@ -22,7 +22,7 @@ class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   // final _storage = new FlutterSecureStorage();
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  String _email, _password, _token;
+  String _email, _password, _token, message;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -55,8 +55,15 @@ class LoginScreenState extends State<LoginScreen> {
                   options: MutationOptions(
                       onCompleted: (result) {
                         print(result);
-                        if (result != null &&
-                            result['login']['message'] != null && result['login']['message']) {
+                         if(result['login']['message'] == 'Incorrect login details' || result['login']['user'] == null){
+                             setState(() {
+                                loading = false;
+                                message = 'Incorrect login details';
+                              });
+                              
+                            return _errorDialog();   
+                          }
+
                           _storeToken(result);
                           savedToken();
                           setState(() {
@@ -64,13 +71,7 @@ class LoginScreenState extends State<LoginScreen> {
                           });
                           Navigator.of(context)
                               .pushReplacementNamed(Dashboard.routeName);
-                        } else {
-                          passwordController.text = '';
-                          setState(() {
-                            loading = false;
-                          });
-                          return _errorDialog();
-                        }
+                    
                       },
                       documentNode: gql(login)),
                   builder: (RunMutation insert, QueryResult result) {
@@ -218,11 +219,10 @@ class LoginScreenState extends State<LoginScreen> {
                                     ),
                                     onPressed: () {
                                       if (!_formKey.currentState.validate()) {
-                                        return;
+                                        return null;
                                       }
                                       _formKey.currentState.save();
-                                      print(emailController.text);
-                                      print(passwordController.text);
+                                    
 
                                       // GraphQLClient _client = graphQLConfiguration.clientToQuery();
                                       // QueryResult result = await _client.mutate(
@@ -242,9 +242,14 @@ class LoginScreenState extends State<LoginScreen> {
                                         'password': passwordController.text
                                       });
                                       // return Text('Welcome');
-                                      print('stsring');
-                                      // print(result['login']['message']);
-                                      print('Ending');
+                                      if (result.hasException) {
+                                          print(result.exception.toString());
+                                          setState(() {
+                                            loading = false;
+                                            message = result.exception.toString();
+                                          });
+                                          return _errorDialog();
+                                      }
                                     },
                                   )),
                               // Text("Result: \n ${result.data}",style: TextStyle(color: Colors.white),),
@@ -344,11 +349,11 @@ class LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Invalid Credential'),
+            title: Text('Could not sign in'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Invalid email or password'),
+                  Text('$message'),
                 ],
               ),
             ),

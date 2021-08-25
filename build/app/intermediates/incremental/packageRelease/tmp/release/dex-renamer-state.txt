@@ -1,4 +1,4 @@
-#Mon Aug 23 21:34:39 WAT 2021
+#Tue Aug 24 17:00:09 WAT 2021
 base.0=/Users/mac/Documents/projects/ednotes/build/app/intermediates/transforms/r8/release/0/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
