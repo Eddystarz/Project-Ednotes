@@ -12,40 +12,40 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:9:5-66
-14-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:9:22-64
+14-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:9:5-66
+14-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:9:22-64
 15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-15-->[:connectivity] /Users/mac/Documents/projects/ednotes/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-79
-15-->[:connectivity] /Users/mac/Documents/projects/ednotes/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-76
+15-->[:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-79
+15-->[:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-76
 16    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-16-->[:connectivity] /Users/mac/Documents/projects/ednotes/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-76
-16-->[:connectivity] /Users/mac/Documents/projects/ednotes/build/connectivity/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-73
+16-->[:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-76
+16-->[:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-73
 17
 18    <application
-18-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:10:5-48:19
+18-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:10:5-48:19
 19        android:name="io.flutter.app.FlutterApplication"
-19-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:11:9-57
+19-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:11:9-57
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-20-->[androidx.core:core:1.1.0] /Users/mac/.gradle/caches/transforms-2/files-2.1/a528b13ac93e64cafa3d0480e2c93207/core-1.1.0/AndroidManifest.xml:24:18-86
+20-->[androidx.core:core:1.1.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\a528b13ac93e64cafa3d0480e2c93207\core-1.1.0\AndroidManifest.xml:24:18-86
 21        android:debuggable="true"
 22        android:icon="@mipmap/ic_launcher"
-22-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:13:9-43
+22-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:13:9-43
 23        android:label="edtech" >
-23-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:12:9-31
+23-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:12:9-31
 24        <activity
-24-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:14:9-42:20
+24-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:14:9-42:20
 25            android:name="com.example.edtech.MainActivity"
-25-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:15:13-41
+25-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:15:13-41
 26            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-26-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:18:13-163
+26-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:18:13-163
 27            android:hardwareAccelerated="true"
-27-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:19:13-47
+27-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:19:13-47
 28            android:launchMode="singleTop"
-28-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:16:13-43
+28-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:16:13-43
 29            android:theme="@style/LaunchTheme"
-29-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:17:13-47
+29-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:17:13-47
 30            android:windowSoftInputMode="adjustResize" >
-30-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:20:13-55
+30-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:20:13-55
 31
 32            <!--
 33                 Specifies an Android theme to apply to this Activity as soon as
@@ -54,11 +54,11 @@
 36                 to determine the Window background behind the Flutter UI.
 37            -->
 38            <meta-data
-38-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:25:13-28:17
+38-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:25:13-28:17
 39                android:name="io.flutter.embedding.android.NormalTheme"
-39-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:26:15-70
+39-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:26:15-70
 40                android:resource="@style/NormalTheme" />
-40-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:27:15-52
+40-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:27:15-52
 41            <!--
 42                 Displays an Android View that continues showing the launch screen
 43                 Drawable until Flutter paints its first frame, then this splash
@@ -67,21 +67,21 @@
 46                 Flutter's first frame.
 47            -->
 48            <meta-data
-48-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:34:13-37:17
+48-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:34:13-37:17
 49                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-49-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:35:15-79
+49-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:35:15-79
 50                android:resource="@drawable/launch_background" />
-50-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:36:15-61
+50-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:36:15-61
 51
 52            <intent-filter>
-52-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:38:13-41:29
+52-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:38:13-41:29
 53                <action android:name="android.intent.action.MAIN" />
-53-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:39:17-68
-53-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:39:25-66
+53-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:39:17-68
+53-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:39:25-66
 54
 55                <category android:name="android.intent.category.LAUNCHER" />
-55-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:40:17-76
-55-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:40:27-74
+55-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:40:17-76
+55-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:40:27-74
 56            </intent-filter>
 57        </activity>
 58        <!--
@@ -89,11 +89,11 @@
 60             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
 61        -->
 62        <meta-data
-62-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:45:9-47:33
+62-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:45:9-47:33
 63            android:name="flutterEmbedding"
-63-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:46:13-44
+63-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:46:13-44
 64            android:value="2" />
-64-->/Users/mac/Documents/projects/ednotes/android/app/src/main/AndroidManifest.xml:47:13-30
+64-->C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:47:13-30
 65    </application>
 66
 67</manifest>
