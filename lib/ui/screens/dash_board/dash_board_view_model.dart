@@ -10,10 +10,10 @@ class DashBoardViewModel extends BaseModel {
   final AuthService authService = locator<AuthService>();
 
   String firstname = '';
-  User get user => authService.currentUser;
+  User get user => authService.currentUser.user;
 
   Future<void> fetchLoggedInUser() async {
-    firstname = authService.currentUser.firstName;
+    firstname = authService.currentUser.user.firstName;
     notifyListeners();
 
     // print(firstname);

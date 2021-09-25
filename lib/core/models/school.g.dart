@@ -8,11 +8,11 @@ part of 'school.dart';
 
 School _$SchoolFromJson(Map<String, dynamic> json) {
   return School(
-    id: json['_id'] as String,
+    id: json['id'] as String,
     name: json['name'] as String,
     description: json['description'] as String,
     location: json['location'] as String,
-    createdBy: json['created_by'] == null
+    createdBy: json['createdBy'] == null
         ? null
         : User.fromJson(json['createdBy'] as Map<String, dynamic>),
     faculties: (json['faculties'] as List)
@@ -31,11 +31,11 @@ School _$SchoolFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$SchoolToJson(School instance) => <String, dynamic>{
-      '_id': instance.id,
+      'id': instance.id,
       'name': instance.name,
       'description': instance.description,
       'location': instance.location,
-      'created_by': instance.createdBy,
+      'createdBy': instance.createdBy,
       'faculties': instance.faculties,
       'departments': instance.departments,
       'levels': instance.levels,

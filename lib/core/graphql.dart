@@ -98,9 +98,11 @@ class GraphQLConfiguration {
         variables: data,
       ));
       if (queryResult.hasException) {
+        // print(queryResult.exception);
         return ErrorModel(queryResult.exception.toString());
       } else {
-        return SuccessModel(queryResult.data);
+        // print(queryResult.data);
+        return SuccessModel(queryResult.data.data);
       }
     } catch (e) {
       log('Error $e');

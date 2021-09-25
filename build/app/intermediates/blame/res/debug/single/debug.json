@@ -52,6 +52,10 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout\\notification_template_icon_group.xml"
     },
     {
+        "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\drawable_toast_bg.xml.flat",
+        "source": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\fluttertoast\\intermediates\\packaged_res\\debug\\drawable\\toast_bg.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
@@ -76,8 +80,16 @@
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v16\\notification_template_custom_big.xml"
     },
     {
+        "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\drawable_corner.xml.flat",
+        "source": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\fluttertoast\\intermediates\\packaged_res\\debug\\drawable\\corner.xml"
+    },
+    {
         "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
         "source": "C:\\Users\\user\\.gradle\\caches\\transforms-2\\files-2.1\\a528b13ac93e64cafa3d0480e2c93207\\core-1.1.0\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\layout_toast_custom.xml.flat",
+        "source": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\fluttertoast\\intermediates\\packaged_res\\debug\\layout\\toast_custom.xml"
     },
     {
         "merged": "C:\\Users\\user\\Documents\\GitHub\\Project-Ednotes\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",

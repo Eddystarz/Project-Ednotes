@@ -40,7 +40,7 @@ class EditProfileViewModel extends BaseModel {
     notifyListeners();
   }
 
-  User get currentUser => _authService.currentUser;
+  User get currentUser => _authService.currentUser.user;
 
   fetchSchools() async {
     final result = await _userService.getSchoolList();
@@ -71,15 +71,15 @@ class EditProfileViewModel extends BaseModel {
   // }
 
   setUserHere(String state) {
-    _authService.currentUser.department =
-        departmentList.firstWhere((element) => element.name == selectDept);
-    _authService.currentUser.faculty =
-        facultyList.firstWhere((element) => element.name == selectedFaculty);
-    _authService.currentUser.school =
-        schoolList.firstWhere((element) => element.name == selectedSchool);
-    _authService.currentUser.level =
-        levelList.firstWhere((element) => element.name == selectedLevel);
-    _authService.currentUser.state = state;
+    // _authService.currentUser.department =
+    //     departmentList.firstWhere((element) => element.name == selectDept);
+    // _authService.currentUser.faculty =
+    //     facultyList.firstWhere((element) => element.name == selectedFaculty);
+    // _authService.currentUser.school =
+    //     schoolList.firstWhere((element) => element.name == selectedSchool);
+    // _authService.currentUser.level =
+    //     levelList.firstWhere((element) => element.name == selectedLevel);
+    // _authService.currentUser.state = state;
     notifyListeners();
   }
 
@@ -134,58 +134,6 @@ class EditProfileViewModel extends BaseModel {
         .toList();
     notifyListeners();
   }
-  // getLevels(result) {
-  //   if (result.loading) {
-  //     // setLoading(true);
-  //   }
-  //   var data = result.data['levels'];
-  //   List<Level> levels = List.from(data.map((item) => Level.fromJson(item)));
-  //   // setLoading(false);
-  //   levelList = levels;
-  // }
-
-  showDialogue({BuildContext context, title, message}) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(title),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('$message'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
-  }
-
-  showEditProfileResponse(result, context, state) {
-    if (result['updateStudentProfile']['value'] == true) {
-      setUserHere(state);
-      // setLoading(false);
-      showDialogue(
-          context: context,
-          title: 'Update Successful',
-          message: result['updateStudentProfile']['message']);
-      ExtendedNavigator.of(context).replace(Routes.dashboard);
-    } else {
-      // setLoading(false);
-      return showDialogue(
-          context: context,
-          title: 'An error occureed',
-          message: 'Could not update your profile, please try again later');
-    }
-  }
 
   editprofile(String state, context) async {
     var faculty = fetchObjectFromList(selectedFaculty, facultyList);
@@ -202,15 +150,13 @@ class EditProfileViewModel extends BaseModel {
     final result = await _userService.saveProfileEdit(payload);
     if (result is ErrorModel) {
       setLoading(false);
-      return showDialogue(
-          context: context, title: 'An error occureed', message: result.error);
+      return showErrorDialogue(context: context, message: result.error);
     } else if (result.data['updateStudentProfile']['value'] == true) {
       setLoading(true);
       setUserHere(state);
       // setLoading(false);
       showDialogue(
           context: context,
-          title: 'Update Successful',
           message: result.data['updateStudentProfile']['message']);
       ExtendedNavigator.of(context).replace(Routes.dashboard);
     }

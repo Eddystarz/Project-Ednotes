@@ -94,8 +94,15 @@ class Router extends RouterBase {
       );
     },
     VerifyEmailOtp: (data) {
+      final args = data.getArgs<VerifyEmailOtpArguments>(
+        orElse: () => VerifyEmailOtpArguments(),
+      );
       return MaterialPageRoute<dynamic>(
-        builder: (context) => const VerifyEmailOtp(),
+        builder: (context) => VerifyEmailOtp(
+          key: args.key,
+          timerOff: args.timerOff,
+          email: args.email,
+        ),
         settings: data,
       );
     },
@@ -142,7 +149,16 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushAssistanceScreen() =>
       push<dynamic>(Routes.assistanceScreen);
 
-  Future<dynamic> pushVerifyEmailOtp() => push<dynamic>(Routes.verifyEmailOtp);
+  Future<dynamic> pushVerifyEmailOtp({
+    Key key,
+    bool timerOff,
+    String email,
+  }) =>
+      push<dynamic>(
+        Routes.verifyEmailOtp,
+        arguments:
+            VerifyEmailOtpArguments(key: key, timerOff: timerOff, email: email),
+      );
 
   Future<dynamic> pushSettingsScreen() => push<dynamic>(Routes.settingsScreen);
 
@@ -151,4 +167,16 @@ extension RouterExtendedNavigatorStateX on ExtendedNavigatorState {
   Future<dynamic> pushEditProfile() => push<dynamic>(Routes.editProfile);
 
   Future<dynamic> pushCourseScreen() => push<dynamic>(Routes.courseScreen);
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// VerifyEmailOtp arguments holder class
+class VerifyEmailOtpArguments {
+  final Key key;
+  final bool timerOff;
+  final String email;
+  VerifyEmailOtpArguments({this.key, this.timerOff, this.email});
 }

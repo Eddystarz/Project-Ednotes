@@ -5,6 +5,7 @@ INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\mai
 INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:1:1-49:12
 INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:1:1-49:12
 MERGED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml:1:1-49:12
+MERGED from [:fluttertoast] C:\Users\user\Documents\GitHub\Project-Ednotes\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:shared_preferences] C:\Users\user\Documents\GitHub\Project-Ednotes\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
 MERGED from [:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-10:12
 MERGED from [:path_provider] C:\Users\user\Documents\GitHub\Project-Ednotes\build\path_provider\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-7:12
@@ -104,6 +105,8 @@ uses-sdk
 INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\user\Documents\GitHub\Project-Ednotes\android\app\src\main\AndroidManifest.xml
+MERGED from [:fluttertoast] C:\Users\user\Documents\GitHub\Project-Ednotes\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] C:\Users\user\Documents\GitHub\Project-Ednotes\build\fluttertoast\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] C:\Users\user\Documents\GitHub\Project-Ednotes\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:shared_preferences] C:\Users\user\Documents\GitHub\Project-Ednotes\build\shared_preferences\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44
 MERGED from [:connectivity] C:\Users\user\Documents\GitHub\Project-Ednotes\build\connectivity\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-44

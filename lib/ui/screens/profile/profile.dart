@@ -94,8 +94,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: size.height * 0.02),
                               Text(
-                                model.user.age ??
-                                    'Please edit profile to add info',
+                                // model.user.age ??
+                                'Please edit profile to add info',
                                 style: TextStyle(
                                   height: 1.6,
                                 ),
@@ -112,7 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.04),
                       Text(
-                        'Department: ${model.user.department?.name ?? 'Edit profile to add info'}',
+                        "",
+                        // 'Department: ${model.user.department?.name ?? 'Edit profile to add info'}',
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                           fontSize: 15,
@@ -121,7 +122,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
+                        "",
+                        // 'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -129,7 +131,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
+                        "",
+                        // 'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -137,7 +140,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        'State: ${model.user.state ?? 'Edit profile to add info'}',
+                        "",
+                        // 'State: ${model.user.state ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

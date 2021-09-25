@@ -25,17 +25,14 @@ class User {
   String email;
   bool isVerified;
   bool isActive;
-  String age;
+  // String age;
   String phoneNumber;
-  School school;
-  Department department;
-  Faculty faculty;
-  Level level;
-  String university;
-  String state;
+  String userType;
 
   DateTime createdAt;
   DateTime updatedAt;
+
+  
   User(
       {@required this.firstName,
       @required this.lastName,
@@ -44,14 +41,8 @@ class User {
       this.email,
       this.isVerified,
       this.isActive,
-      this.age,
-      this.department,
-      this.school,
-      this.faculty,
-      this.university,
-      this.level,
-      this.state,
       this.createdAt,
+      this.userType,
       this.updatedAt});
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
