@@ -58,13 +58,13 @@ class RequestAssistanceScreenState extends State<RequestAssistanceScreen> {
                             contentPadding: EdgeInsets.only(top: 18,bottom: 18,left: 15),
                           ),
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Please enter your email';
                             }
                             // if(!RegExp())
                             return null;
                           },
-                          onSaved: (String value) {
+                          onSaved: (String? value) {
                             // _email = value;
                           },
                         ),
@@ -91,13 +91,13 @@ class RequestAssistanceScreenState extends State<RequestAssistanceScreen> {
                           ),
                           maxLines: 5,
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Please enter your email';
                             }
                             // if(!RegExp())
                             return null;
                           },
-                          onSaved: (String value) {
+                          onSaved: (String? value) {
                             // _email = value;
                           },
                         ),
@@ -123,13 +123,13 @@ class RequestAssistanceScreenState extends State<RequestAssistanceScreen> {
                             contentPadding: EdgeInsets.only(top: 18,bottom: 18,left: 15),
                           ),
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return 'Please enter your email';
                             }
                             // if(!RegExp())
                             return null;
                           },
-                          onSaved: (String value) {
+                          onSaved: (String? value) {
                             // _email = value;
                           },
                         ),
@@ -197,13 +197,13 @@ class RequestAssistanceScreenState extends State<RequestAssistanceScreen> {
                                     contentPadding: EdgeInsets.only(top: 18,bottom: 18,left: 15),
                                   ),
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your email';
                                     }
                                     // if(!RegExp())
                                     return null;
                                   },
-                                  onSaved: (String value) {
+                                  onSaved: (String? value) {
                                     // _email = value;
                                   },
                                 ),

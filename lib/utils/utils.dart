@@ -1,34 +1,25 @@
-// import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 
-// // class Utils {
-// //   final BuildContext context;
-
-// //   Utils(this.context);
-
-// //   showToast(String message, context) {
-// //     FlutterToast ft = FlutterToast(context);
-// //     ft.showToast(
-// //         child: Container(
-// //       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-// //       decoration: BoxDecoration(
-// //         borderRadius: BorderRadius.circular(25.0),
-// //         color: Colors.greenAccent,
-// //       ),
-// //       child: Row(
-// //         mainAxisSize: MainAxisSize.min,
-// //         children: [
-// //           Icon(Icons.check),
-// //           SizedBox(
-// //             width: 12.0,
-// //           ),
-// //           Text(message),
-// //         ],
-// //       ),
-// //     ));
-// //   }
-// // }
+// showToast(String message) {
+//   Fluttertoast.showToast(
+//       msg: message,
+//       toastLength: Toast.LENGTH_LONG,
+//       gravity: ToastGravity.BOTTOM,
+//       timeInSecForIosWeb: 2,
+//       backgroundColor: Color(0xFF009933),
+//       textColor: Colors.white,
+//       fontSize: 16.0);
+// }
 
 // showErrorToast(String message) {
+//   // Fluttertoast.(
+//   //   msg: message,
+//   //   toastLength: Toast.LENGTH_LONG,
+//   //   gravity: ToastGravity.BOTTOM,
+//   //   timeInSecForIosWeb: 2,
+//   //  // backgroundColor: Color(0xFFff3333),
+//   //   textColor: Colors.white,
+//   //   fontSize: 16.0
+//   // );
  
 // }

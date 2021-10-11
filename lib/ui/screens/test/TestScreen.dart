@@ -288,7 +288,7 @@ class TestScreenState extends State<TestScreen>
                 )
             ),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter your email';
               }
               // if(!RegExp())

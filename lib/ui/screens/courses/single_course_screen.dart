@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SingleCourseScreen extends StatefulWidget {
-  final Course course;
+  final Course? course;
 
-  const SingleCourseScreen({Key key, this.course}) : super(key: key);
+  const SingleCourseScreen({Key? key, this.course}) : super(key: key);
   
   @override
   SingleCourseScreenState createState(){
@@ -138,7 +138,7 @@ class SingleCourseScreenState extends State<SingleCourseScreen>
               )
           ),
           validator: (value) {
-            if (value.isEmpty) {
+            if (value!.isEmpty) {
               return 'Please enter your email';
             }
             // if(!RegExp())

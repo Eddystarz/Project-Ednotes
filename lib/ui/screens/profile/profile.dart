@@ -1,11 +1,12 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:edtech/router/router.gr.dart';
+
+import 'package:edtech/ui/screens/profile/edit_profile/edit_profile.dart';
 import 'package:edtech/ui/screens/profile/profile_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -24,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: AppBar(
               leading: IconButton(
                 icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => ExtendedNavigator.of(context).pop(),
+                onPressed: () => Get.back(),//ex.ExtendedNavigator.of(context).pop(),
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -94,8 +95,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               SizedBox(height: size.height * 0.02),
                               Text(
-                                // model.user.age ??
-                                'Please edit profile to add info',
+                                "age",
+                                //model.user!.age ??
+                                //    'Please edit profile to add info',
                                 style: TextStyle(
                                   height: 1.6,
                                 ),
@@ -104,16 +106,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           GestureDetector(
                               onTap: () {
-                                ExtendedNavigator.of(context)
-                                    .push(Routes.editProfile);
+                                //ex.ExtendedNavigator.of(context)
+                                //    .push(Routes.editProfile);
+                                Get.to(() => EditProfile());
                               },
                               child: Icon(Icons.edit_outlined))
                         ],
                       ),
                       SizedBox(height: size.height * 0.04),
                       Text(
-                        "",
-                        // 'Department: ${model.user.department?.name ?? 'Edit profile to add info'}',
+                        "Department",
+                        //'Department: ${model.user.department.name ?? 'Edit profile to add info'}',
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                           fontSize: 15,
@@ -122,8 +125,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
+                        "Faculty",
+                        //'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -131,8 +134,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
+                        "University",
+                        //'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -140,8 +143,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'State: ${model.user.state ?? 'Edit profile to add info'}',
+                        "State",
+                        //'State: ${model.user.state ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

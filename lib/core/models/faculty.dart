@@ -10,10 +10,10 @@ class Faculty {
 // school: School!
 // name: String!
 // description: Str
-  String id;
-  String school;
-  String name;
-  String description;
+  String? id;
+  String? school;
+  String? name;
+  String? description;
 
   Faculty({
     @required this.id,

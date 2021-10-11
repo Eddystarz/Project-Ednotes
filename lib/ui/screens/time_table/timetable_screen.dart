@@ -280,7 +280,7 @@ class TimetableScreenState extends State<TimetableScreen>
               )
           ),
           validator: (value) {
-            if (value.isEmpty) {
+            if (value!.isEmpty) {
               return 'Please enter your email';
             }
             // if(!RegExp())

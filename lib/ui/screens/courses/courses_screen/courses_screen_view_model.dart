@@ -5,7 +5,7 @@ class CoursesViewModel extends BaseModel {
   var coursesList = <Course>[];
 
   bool isLoading = false;
-  String errorMessage;
+  String? errorMessage;
 
   setIsLoading(val) {
     isLoading = val;

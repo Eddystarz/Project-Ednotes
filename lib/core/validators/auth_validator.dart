@@ -4,48 +4,49 @@
 import 'package:edtech/core/validators/index.dart';
 
 class RegisterValidators extends Validators {
-  String name(value) {
+  String? name(value) {
     return isEmpty(value) ?? limit(value, min: 2);
   }
 
-  String firstName(value) {
+  String? firstName(value) {
     return isEmptyFirstName(value) ?? limit(value, min: 2);
   }
 
-  String lastName(value) {
+  String? lastName(value) {
     return isEmptyLastName(value) ?? limit(value, min: 2);
   }
 
-  String mobileNumber(value) {
+  String? mobileNumber(value) {
     return numberValidator(value) ??
         limit(value, min: 2) ??
         isEmptyMobileNumber(value);
 
   }
 
-  String optValidator(value) {
+  String? optValidator(value) {
     return isEmpty(value) ?? numberValidator(value);
   }
-  String regNumber(value){
+  String? regNumber(value){
     return  numberValidator(value) ??limit(value, min: 2) ?? isEmptyRegNumber(value);
   }
-  String userName(value){
+
+  String? userName(value){
     return isEmptyUserName(value) ?? limit(value, min: 2);
   }
 
-  String email(value) {
+  String? email(value) {
     return isEmptyEmail(value) ?? isEmail(value);
   }
 
-  String otp(value) {
+  String? otp(value) {
     return isEmpty(value) ?? isNumeric(value) ?? limit(value, min: 2);
   }
 
-  String password(value) {
+  String? password(value) {
     return isEmptyPassword(value) ?? limit(value, min: 8);
   }
 
-  String confirmPassword(value, confirmValue, key) {
+  String? confirmPassword(value, confirmValue, key) {
     return isEmptyPassword(value) ?? confirm(value, confirmValue, key);
   }
 }

@@ -1,18 +1,11 @@
 import 'package:edtech/core/graphql.dart';
-import 'package:edtech/core/graphql_strings/auth_mutations.dart';
-import 'package:edtech/core/graphql_strings/user_mutations.dart';
 import 'package:edtech/core/models/error_model.dart';
 import 'package:edtech/core/models/success_model.dart';
-import 'package:edtech/core/services/auth_service.dart';
-import 'package:edtech/locator.dart';
 
 class UserService {
-  final AuthService _authService = locator<AuthService>();
-
   getSchoolList() async {
     GraphQLConfiguration config = GraphQLConfiguration();
-    var result =
-        await config.gpQuery(queryDocumnet: UserMutations().fetchSchools);
+    var result = await config.gpQuery(queryDocumnet: fetchSchools);
     if (result is ErrorModel) {
       print(result.error);
       return ErrorModel(result.error);
@@ -24,8 +17,7 @@ class UserService {
 
   getFaculty() async {
     GraphQLConfiguration config = GraphQLConfiguration();
-    var result =
-        await config.gpQuery(queryDocumnet: UserMutations().fetchFaculties);
+    var result = await config.gpQuery(queryDocumnet: fetchFaculties);
     if (result is ErrorModel) {
       return ErrorModel(result.error);
     } else {
@@ -36,7 +28,7 @@ class UserService {
 
   getDepartment() async {
     GraphQLConfiguration config = GraphQLConfiguration();
-    var result = await config.gpQuery(queryDocumnet: UserMutations().fetchDept);
+    var result = await config.gpQuery(queryDocumnet: fetchDept);
     if (result is ErrorModel) {
       return ErrorModel(result.error);
     } else {
@@ -47,8 +39,7 @@ class UserService {
 
   getLevel() async {
     GraphQLConfiguration config = GraphQLConfiguration();
-    var result =
-        await config.gpQuery(queryDocumnet: UserMutations().fetchLevels);
+    var result = await config.gpQuery(queryDocumnet: fetchLevels);
     if (result is ErrorModel) {
       return ErrorModel(result.error);
     } else {
@@ -60,7 +51,7 @@ class UserService {
   saveProfileEdit(Map<String, dynamic> payload) async {
     GraphQLConfiguration config = GraphQLConfiguration();
     var result = await config.gpMutate(
-        mutationDOcument: UserMutations().editStudentProfile, data: payload);
+        mutationDOcument: editStudentProfile, data: payload);
     if (result is ErrorModel) {
       return ErrorModel(result.error);
     } else {
@@ -69,48 +60,88 @@ class UserService {
     }
   }
 
-  resendCode(Map<String, dynamic> payload) async {
-    GraphQLConfiguration config = GraphQLConfiguration();
-    var result = await config.gpMutate(
-        mutationDOcument: UserMutations().resendCode, data: payload);
-
-    if (result is ErrorModel) {
-      return ErrorModel(result.error);
-    } else {
-      return SuccessModel(result.data);
-    }
-  }
-
-  confirmMail(Map<String, dynamic> payload) async {
-    GraphQLConfiguration config = GraphQLConfiguration();
-    var result = await config.gpMutate(
-        mutationDOcument: AuthMutations().confimEmail, data: payload);
-
-    if (result is ErrorModel) {
-      return ErrorModel(result.error);
-    } else {
-      if (result.data['confirmEmail']['value'] == false) {
-        return ErrorModel(result.data['confirmEmail']['message']);
+  String studentProfile = """
+      query{
+        student{
+          user{
+            username,
+            firstName
+          },
+          phoneNumber
+        }
       }
-      return SuccessModel(result.data);
-    }
-  }
+    """;
 
-  createStudentProfile(Map<String, dynamic> payload) async {
-    GraphQLConfiguration config = GraphQLConfiguration();
-    var result = await config.gpMutate(
-        mutationDOcument: UserMutations().createStudenProfile, data: payload);
-    if (result is ErrorModel) {
-      return ErrorModel(result.error);
-    } else {
-      if (result.data['createStudentProfile']['value'] == false) {
-        return ErrorModel(result.data['createStudentProfile']['message']);
+  String fetchSchools = """
+           query{
+        schools{
+          name,
+          _id,
+          departments{
+            name,
+            _id,
+            faculty{
+              name,
+              _id
+              }
+          },
+          faculties{
+            name,
+            _id,
+          }
+          levels{
+            name,
+            _id,
+              dept{
+              name,
+              _id
+            }
+          }
+        }
       }
-      var resultData = result.data['createStudentProfile'];
-      _authService
-          .setCurrentStudent(resultData['student']);
-      _authService.setAndSaveToken(val:resultData['token']);
-      return SuccessModel(result.data);
+    """;
+
+  String fetchFaculties = """
+      query{
+        faculties{
+          name,
+          _id
+        }
+      }
+    """;
+
+  String fetchLevels = """
+      query{
+        levels{
+          name,
+          _id
+        }
+      }
+    """;
+
+  String fetchDept = """
+      query{
+        depts{
+          name,
+          _id
+        }
+      }
+    """;
+
+//     state: String
+// school: ID
+// faculty: ID
+// dept: ID
+// level: ID
+
+  String editStudentProfile = """
+    mutation editProfile(\$state: String!, \$school: ID!, \$faculty: ID!, \$dept: ID!, \$level: ID!) {
+      updateStudentProfile(state: \$state, school: \$school, faculty: \$faculty,dept: \$dept,level: \$level) {
+        message,value,student{
+         
+          state
+        }
+      }
     }
-  }
+    """;
 }
