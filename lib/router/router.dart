@@ -1,6 +1,7 @@
 // import 'package:edtech/ui/Screens/auth/verify/verify_opt_screen.dart';
 
-import 'package:auto_route/auto_route_annotations.dart';
+
+import 'package:auto_route/annotations.dart';
 import 'package:edtech/ui/screens/assistance/assistance_screen.dart';
 import 'package:edtech/ui/screens/auth/login/login_screen.dart';
 import 'package:edtech/ui/screens/auth/sign_up/signup_screen.dart';
@@ -13,7 +14,7 @@ import 'package:edtech/ui/screens/settings/settings_screen.dart';
 import 'package:edtech/ui/screens/splash_screen/splash_screen.dart';
 
 @MaterialAutoRouter(
-  generateNavigationHelperExtension: true,
+  //generateNavigationHelperExtension: true,
   routes: <AutoRoute>[
     // initial route is named "/"
     MaterialRoute(

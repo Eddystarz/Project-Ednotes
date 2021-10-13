@@ -3,54 +3,67 @@ import 'package:edtech/core/models/faculty.dart';
 import 'package:edtech/core/models/level.dart';
 import 'package:edtech/core/models/school.dart';
 import 'package:flutter/material.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'user.g.dart';
-
-@JsonSerializable()
 class User {
-//   firstName: String!
-// lastName: String!
-// username: String!
-// email: String!
-// userType: String!
-// isVerified: Boolean
-// isActive: Boolean
-// createdAt: DateTime!
-// updatedAt: DateTime!
-  String id;
-  String firstName;
-  String lastName;
-  String username;
-  String email;
-  bool isVerified;
-  bool isActive;
-  // String age;
-  String phoneNumber;
-  String userType;
+  String? sId;
+  String? firstName;
+  String? lastName;
+  String? username;
+  String? email;
+  String? phoneNumber;
+  String? userType;
+  bool? isVerified;
+  bool? isActive;
+  String? createdAt;
+  String? updatedAt;
 
-  DateTime createdAt;
-  DateTime updatedAt;
-
-  
   User(
-      {@required this.firstName,
-      @required this.lastName,
-      @required this.username,
-      this.id,
-      this.email,
-      this.isVerified,
-      this.isActive,
-      this.createdAt,
-      this.userType,
-      this.updatedAt});
+      {this.sId,
+        this.firstName,
+        this.lastName,
+        this.username,
+        this.email,
+        this.phoneNumber,
+        this.userType,
+        this.isVerified,
+        this.isActive,
+        this.createdAt,
+        this.updatedAt});
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  User.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    username = json['username'];
+    email = json['email'];
+    phoneNumber = json['phoneNumber'];
+    userType = json['userType'];
+    isVerified = json['isVerified'];
+    isActive = json['isActive'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['username'] = this.username;
+    data['email'] = this.email;
+    data['phoneNumber'] = this.phoneNumber;
+    data['userType'] = this.userType;
+    data['isVerified'] = this.isVerified;
+    data['isActive'] = this.isActive;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    return data;
+  }
 }
 
+
 class AuthToken {
-  String token;
+  String? token;
 
   AuthToken({this.token});
   factory AuthToken.fromJson(String token) {

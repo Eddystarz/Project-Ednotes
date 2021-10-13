@@ -1,27 +1,42 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:edtech/core/graphql.dart';
 // import 'package:edtech/core/services/auth_service.dart';
 import 'package:edtech/locator.dart';
+import 'package:edtech/ui/screens/auth/login/login_screen.dart';
+import 'package:edtech/ui/screens/auth/login/loginprovider.dart';
+import 'package:edtech/ui/screens/courses/courses_screen/courseprovider.dart';
+import 'package:edtech/ui/screens/courses/ttsprovider.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 // import 'package:edtech/Screens/login_screen.dart';
 // import 'package:edtech/Screens/change_password_screen.dart';
 // import 'package:edtech/Screens/verify_opt_screen.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:edtech/router/router.gr.dart' as app_router;
+//import 'package:edtech/router/router.gr.dart' as app_router;
 
 // GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
+  await initHiveForFlutter();
 
   setUp();
 
   runApp(
-    MyApp(),
+      MultiProvider(providers: [
+        ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ChangeNotifierProvider(create: (context) => CourseProvider()),
+        ChangeNotifierProvider(create: (context) => TTSProvider()),
+
+      ],
+        child: MyApp(),
+      )
   );
 }
 
@@ -36,7 +51,7 @@ class MyApp extends StatelessWidget {
   static bool tokenTempState = false;
 
   const MyApp({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -46,20 +61,22 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: GraphQLConfiguration.initailizeClient(),
       child: CacheProvider(
-        child: MaterialApp(
+        child: GetMaterialApp(
           theme: ThemeData(
             primaryColor: Color(0xFFC50253),
             accentColor: Color(0xFF003049),
             // fontFamily: GoogleFonts.poppins(textStyle: headlin4),
             visualDensity: VisualDensity.adaptivePlatformDensity,
+
           ),
           debugShowCheckedModeBanner: false,
+          home: LoginScreen(),
           // home:  GraphQLProvider(
           //       client: client,
           //       child: LoginScreen(),
           // ),
 
-          builder: ExtendedNavigator(router: app_router.Router()),
+          //builder: ExtendedNavigator(router: app_router.Router()),
         ),
       ),
     );

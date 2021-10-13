@@ -16,12 +16,12 @@ class Level {
 // description: String!
 // students: [ID]
 
-  String id;
-  Faculty faculty;
-  Department department;
-  String name;
-  String description;
-  List<String> students;
+  String? id;
+  Faculty? faculty;
+  Department? department;
+  String? name;
+  String? description;
+  List<String>? students;
   Level({
      this.id,
      this.faculty,

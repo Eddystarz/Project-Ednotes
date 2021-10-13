@@ -6,7 +6,7 @@ import 'package:edtech/locator.dart';
 class ProfileViewModel extends BaseModel {
   final AuthService _authService = locator<AuthService>();
 
-  User get user => _authService.currentUser.user;
+  User get user => _authService.currentUser!;
 
   
 }

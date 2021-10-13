@@ -14,11 +14,11 @@ class Department {
 // name: String!
 // description: String!
 
-  String id;
-  String school;
-  Faculty faculty;
-  String description;
-  String name;
+  String? id;
+  String? school;
+  Faculty? faculty;
+  String? description;
+  String? name;
 
   Department({@required this.id, this.name, this.faculty, this.description});
 

@@ -8,7 +8,7 @@ part of 'department.dart';
 
 Department _$DepartmentFromJson(Map<String, dynamic> json) {
   return Department(
-    id: json['id'] as String,
+    id: json['_id'] as String,
     name: json['name'] as String,
     faculty: json['faculty'] == null
         ? null
@@ -19,7 +19,7 @@ Department _$DepartmentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$DepartmentToJson(Department instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'school': instance.school,
       'faculty': instance.faculty,
       'description': instance.description,

@@ -1,72 +1,172 @@
-import 'package:edtech/core/models/department.dart';
-import 'package:edtech/core/models/faculty.dart';
-import 'package:edtech/core/models/level.dart';
-import 'package:edtech/core/models/school.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-
-part 'course.g.dart';
-
-
-@JsonSerializable()
 class Course {
-//   _id: ID!
-// school: School
-// faculty: Faculty
-// dept: Dept
-// level: Level
-// name: String
-// description: String
-// semester: String
+  String? sId;
+  String? name;
+  String? description;
+  School? school;
+  School? faculty;
+  School? dept;
+  School? level;
+  List<CourseTopics>? courseTopics;
 
-  String id;
-  School school;
-  Faculty faculty;
-  Department department;
-  Level level;
-  String name;
-  String description;
-  String semester;
-  Course({
-     this.id,
-     this.school,
-     this.faculty,
-     this.department,
-     this.level,
-     this.name,
-     this.description,
-     this.semester,
-  });
+  Course(
+      {this.sId,
+        this.name,
+        this.description,
+        this.school,
+        this.faculty,
+        this.dept,
+        this.level,
+        this.courseTopics});
 
-
-factory Course.fromJson(Map<String, dynamic> json) =>
-      _$CourseFromJson(json);
-  Map<String, dynamic> toJson() => _$CourseToJson(this);
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Course &&
-      other.id == id &&
-      other.school == school &&
-      other.faculty == faculty &&
-      other.department == department &&
-      other.level == level &&
-      other.name == name &&
-      other.description == description &&
-      other.semester == semester;
+  Course.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    description = json['description'];
+    school =
+    json['school'] != null ? new School.fromJson(json['school']) : null;
+    faculty =
+    json['faculty'] != null ? new School.fromJson(json['faculty']) : null;
+    dept = json['dept'] != null ? new School.fromJson(json['dept']) : null;
+    level = json['level'] != null ? new School.fromJson(json['level']) : null;
+    if (json['courseTopics'] != null) {
+      courseTopics = [];
+      json['courseTopics'].forEach((v) {
+        courseTopics!.add(new CourseTopics.fromJson(v));
+      });
+    }
   }
 
-  @override
-  int get hashCode {
-    return id.hashCode ^
-      school.hashCode ^
-      faculty.hashCode ^
-      department.hashCode ^
-      level.hashCode ^
-      name.hashCode ^
-      description.hashCode ^
-      semester.hashCode;
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    if (this.school != null) {
+      data['school'] = this.school!.toJson();
+    }
+    if (this.faculty != null) {
+      data['faculty'] = this.faculty!.toJson();
+    }
+    if (this.dept != null) {
+      data['dept'] = this.dept!.toJson();
+    }
+    if (this.level != null) {
+      data['level'] = this.level!.toJson();
+    }
+    if (this.courseTopics != null) {
+      data['courseTopics'] = this.courseTopics!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class School {
+  String? sId;
+  String? name;
+
+  School({this.sId, this.name});
+
+  School.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    return data;
+  }
+}
+
+class CourseTopics {
+  String? sId;
+  String? name;
+  List<LectureNotes>? lectureNotes;
+
+  CourseTopics({this.sId, this.name, this.lectureNotes});
+
+  CourseTopics.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    if (json['lectureNotes'] != null) {
+      lectureNotes = [];
+      json['lectureNotes'].forEach((v) {
+        lectureNotes!.add(new LectureNotes.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    if (this.lectureNotes != null) {
+      data['lectureNotes'] = this.lectureNotes!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class LectureNotes {
+  String? sId;
+  String? name;
+  String? text;
+  List<NoteAttachments>? noteAttachments;
+
+  LectureNotes({this.sId, this.name, this.text, this.noteAttachments});
+
+  LectureNotes.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    text = json['text'];
+    if (json['noteAttachments'] != null) {
+      noteAttachments = [];
+      json['noteAttachments'].forEach((v) {
+        noteAttachments!.add(new NoteAttachments.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['text'] = this.text;
+    if (this.noteAttachments != null) {
+      data['noteAttachments'] =
+          this.noteAttachments!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class NoteAttachments {
+  String? sId;
+  String? url;
+  String? fileName;
+  String? mimeType;
+  String? dateUploaded;
+
+  NoteAttachments(
+      {this.sId, this.url, this.fileName, this.mimeType, this.dateUploaded});
+
+  NoteAttachments.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    url = json['url'];
+    fileName = json['file_name'];
+    mimeType = json['mime_type'];
+    dateUploaded = json['date_uploaded'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['url'] = this.url;
+    data['file_name'] = this.fileName;
+    data['mime_type'] = this.mimeType;
+    data['date_uploaded'] = this.dateUploaded;
+    return data;
   }
 }

@@ -1,5 +1,6 @@
-import 'package:edtech/ui/Screens/auth/login/login_screen.dart';
-import 'package:edtech/ui/Screens/auth/verify/verify_opt_screen.dart';
+
+import 'package:edtech/ui/screens/auth/login/login_screen.dart';
+import 'package:edtech/ui/screens/auth/verify/verify_opt_screen.dart';
 import "package:flutter/material.dart";
 
 // import "pac"
@@ -117,7 +118,7 @@ Widget enailForm() {
           // contentPadding: new EdgeInsets.fromLTRB(30.0, 45.0, 20.0, 10.0),
           ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return 'Please enter some text';
         }
         return null;
@@ -133,7 +134,7 @@ passwordForm() {
       labelText: 'password',
     ),
     validator: (value) {
-      if (value.isEmpty) {
+      if (value!.isEmpty) {
         return 'Please enter some text';
       }
       return null;

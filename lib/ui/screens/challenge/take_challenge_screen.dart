@@ -69,13 +69,13 @@ class TakeChallengeScreenState extends State<TakeChallengeScreen> {
                                 ),
                                 maxLines: 5,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  if (value!.isEmpty) {
                                     return 'Please enter your email';
                                   }
                                   // if(!RegExp())
                                   return null;
                                 },
-                                onSaved: (String value) {
+                                onSaved: (String? value) {
                                   // _email = value;
                                 },
                               ),
@@ -114,13 +114,13 @@ class TakeChallengeScreenState extends State<TakeChallengeScreen> {
                                 ),
                                 maxLines: 5,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  if (value!.isEmpty) {
                                     return 'Please enter your email';
                                   }
                                   // if(!RegExp())
                                   return null;
                                 },
-                                onSaved: (String value) {
+                                onSaved: (String? value) {
                                   // _email = value;
                                 },
                               ),

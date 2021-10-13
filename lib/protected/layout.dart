@@ -24,7 +24,7 @@ class ProtectedScreenState extends StatelessWidget
               height:90,
               padding: EdgeInsets.all(0.0),
               child: ColoredBox(
-                color: Colors.blue[900],
+                color: Colors.blue[900]!,
                 child: Center(
                   child: Text('ED Tech',
                       style: TextStyle(color: Colors.white, fontSize: 20)),

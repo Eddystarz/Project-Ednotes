@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key key}) : super(key: key);
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,13 @@ class SplashScreen extends StatelessWidget {
       viewModelBuilder: () => SplashScreenViewModel(),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Theme.of(context).accentColor,
-          body: Column(mainAxisSize: MainAxisSize.max,
+          body: Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: size.height * 0.12),
                 Expanded(
                   flex: 6,
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Center(
                         child: CircleAvatar(
@@ -34,8 +33,7 @@ class SplashScreen extends StatelessWidget {
                             backgroundColor: Colors.white,
                             child: CircleAvatar(
                                 radius: 68,
-                                backgroundColor:
-                                    Theme.of(context).accentColor,
+                                backgroundColor: Theme.of(context).accentColor,
                                 child: Text(
                                   'LOGO',
                                   style: TextStyle(
