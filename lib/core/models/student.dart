@@ -9,6 +9,7 @@ part 'student.g.dart';
 
 @JsonSerializable()
 class Student {
+  @JsonKey(name:"_id")
   String id;
   User user;
   String state;

@@ -9,10 +9,13 @@ import 'package:edtech/core/models/error_model.dart';
 import 'package:edtech/core/models/student.dart';
 import 'package:edtech/core/models/success_model.dart';
 import 'package:edtech/core/models/user.dart';
+import 'package:edtech/locator.dart';
 // import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
+  final GraphQLConfiguration config = locator<GraphQLConfiguration>();
+
   Student _currentUser = Student();
   AuthToken _authModel = AuthToken();
 
@@ -108,6 +111,21 @@ class AuthService {
       if (result.data['login']['user'] == null) {
         return ErrorModel(result.data['login']['message']);
       }
+      User user = User.fromJson(result.data['login']['user']);
+      setCurrentUser(user);
+      setAndSaveToken(
+          val: result.data['login']['message'],
+          firstname: result.data['login']['user']['firstName']);
+      return SuccessModel(result.data);
+    }
+  }
+
+  logout() async {
+    var result =
+        await config.gpMutate(mutationDOcument: AuthMutations().logout);
+    if (result is ErrorModel) {
+      return ErrorModel(result.error);
+    } else {
       return SuccessModel(result.data);
     }
   }

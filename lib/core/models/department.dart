@@ -13,7 +13,7 @@ class Department {
 // faculty: Faculty!
 // name: String!
 // description: String!
-
+@JsonKey(name:"_id")
   String id;
   String school;
   Faculty faculty;

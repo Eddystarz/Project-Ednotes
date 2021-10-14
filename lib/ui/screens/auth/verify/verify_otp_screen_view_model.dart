@@ -54,7 +54,7 @@ class VerifyOtpScreenViewModel extends BaseModel {
       setLoading(false);
       showErrorDialogue(message: result.error, context: context, onTap: () {});
     } else if (result.data['confirmEmail']['value'] == true) {
-      createStudentProfile(context);
+      // createStudentProfile(context);
       setLoading(false);
       showDialogue(
           message: result.data['confirmEmail']['message'],

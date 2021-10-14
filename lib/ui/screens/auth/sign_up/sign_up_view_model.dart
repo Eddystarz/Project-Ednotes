@@ -35,8 +35,7 @@ class SignupViewModel extends BaseModel {
     if (result['studentSignup']['value'] == false) {
       print(result);
       showErrorDialogue(
-          context: context,
-          message: result['studentSignup']['message']);
+          context: context, message: result['studentSignup']['message']);
     } else if (result['studentSignup']['value'] == true) {
       ExtendedNavigator.of(context).replace(Routes.loginScreen);
     }
@@ -65,18 +64,17 @@ class SignupViewModel extends BaseModel {
       print(result.error);
       setBusy(false);
       return showErrorDialogue(
-          context: context, message: result.error);
+          context: context, message: result.error, onTap: () {});
     } else if (result.data['signup']['value'] == true) {
       print(result.data);
       setBusy(false);
-      showDialogue(
-          context: context,
-          message: result.data['signup']['message'],
-          onTap: () {
-            ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
-                arguments:
-                    VerifyEmailOtpArguments(timerOff: false, email: email));
-          });
+      // showDialogue(
+      //     context: context,
+      //     message: result.data['signup']['message'],
+      //     onTap: () {
+      ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
+          arguments: VerifyEmailOtpArguments(timerOff: false, email: email));
+      // });
     }
   }
 

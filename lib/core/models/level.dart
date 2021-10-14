@@ -15,9 +15,10 @@ class Level {
 // name: String!
 // description: String!
 // students: [ID]
-
+@JsonKey(name:"_id")
   String id;
   Faculty faculty;
+  @JsonKey(name:"dept")
   Department department;
   String name;
   String description;

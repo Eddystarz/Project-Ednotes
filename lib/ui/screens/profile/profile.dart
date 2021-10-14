@@ -17,6 +17,9 @@ class _ProfilePageState extends State<ProfilePage> {
     var size = MediaQuery.of(context).size;
 
     return ViewModelBuilder<ProfileViewModel>.reactive(
+      onModelReady: (model) {
+        model.getUser();
+      },
       viewModelBuilder: () => ProfileViewModel(),
       builder: (context, model, child) => Scaffold(
         appBar: PreferredSize(
@@ -85,21 +88,17 @@ class _ProfilePageState extends State<ProfilePage> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '${model.user.firstName} ${model.user.lastName}',
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w600,
+                              Container(
+                                width: size.width - 120,
+                                child: Text(
+                                  '${model.user.user.firstName} ${model.user.user.lastName}',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: size.height * 0.02),
-                              Text(
-                                // model.user.age ??
-                                'Please edit profile to add info',
-                                style: TextStyle(
-                                  height: 1.6,
-                                ),
-                              )
                             ],
                           ),
                           GestureDetector(
@@ -112,8 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.04),
                       Text(
-                        "",
-                        // 'Department: ${model.user.department?.name ?? 'Edit profile to add info'}',
+                        'Department: ${model.user.dept?.name ?? 'Edit profile to add info'}',
                         overflow: TextOverflow.clip,
                         style: TextStyle(
                           fontSize: 15,
@@ -122,8 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
+                        'Faculty: ${model.user.faculty?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -131,8 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
+                        'University: ${model.user.school?.name ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -140,8 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       SizedBox(height: size.height * 0.03),
                       Text(
-                        "",
-                        // 'State: ${model.user.state ?? 'Edit profile to add info'}',
+                        'State: ${model.user.state ?? 'Edit profile to add info'}',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

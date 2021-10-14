@@ -43,6 +43,7 @@ class _VerifyEmailOtpState extends State<VerifyEmailOtp> {
     final size = MediaQuery.of(context).size;
 
     return ViewModelBuilder<VerifyOtpScreenViewModel>.reactive(
+      disposeViewModel:false,
       onModelReady: (h) {
         if (widget.timerOff) h.setTimmerStopped(true);
       },

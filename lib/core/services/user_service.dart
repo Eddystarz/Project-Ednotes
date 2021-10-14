@@ -2,17 +2,20 @@ import 'package:edtech/core/graphql.dart';
 import 'package:edtech/core/graphql_strings/auth_mutations.dart';
 import 'package:edtech/core/graphql_strings/user_mutations.dart';
 import 'package:edtech/core/models/error_model.dart';
+import 'package:edtech/core/models/student.dart';
 import 'package:edtech/core/models/success_model.dart';
 import 'package:edtech/core/services/auth_service.dart';
 import 'package:edtech/locator.dart';
 
 class UserService {
   final AuthService _authService = locator<AuthService>();
+  final GraphQLConfiguration config = locator<GraphQLConfiguration>();
 
   getSchoolList() async {
-    GraphQLConfiguration config = GraphQLConfiguration();
+    // GraphQLConfiguration config = GraphQLConfiguration();
     var result =
         await config.gpQuery(queryDocumnet: UserMutations().fetchSchools);
+    print(config.clientToQuery());
     if (result is ErrorModel) {
       print(result.error);
       return ErrorModel(result.error);
@@ -107,9 +110,20 @@ class UserService {
         return ErrorModel(result.data['createStudentProfile']['message']);
       }
       var resultData = result.data['createStudentProfile'];
-      _authService
-          .setCurrentStudent(resultData['student']);
-      _authService.setAndSaveToken(val:resultData['token']);
+      Student student = Student.fromJson(resultData['student']);
+      _authService.setCurrentStudent(student);
+      _authService.setAndSaveToken(val: resultData['token']);
+      print(result.data);
+      return SuccessModel(result.data);
+    }
+  }
+
+  getStudent() async {
+    var result =
+        await config.gpQuery(queryDocumnet: UserMutations().getStudent);
+    if (result is ErrorModel) {
+      return ErrorModel(result.error);
+    } else {
       return SuccessModel(result.data);
     }
   }

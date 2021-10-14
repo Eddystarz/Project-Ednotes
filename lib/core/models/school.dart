@@ -16,6 +16,7 @@ class School {
 // faculties: [Faculty]
 // departments: [Dept]
 // levels: [Level]
+@JsonKey(name:"_id")
   String id;
   String name;
 

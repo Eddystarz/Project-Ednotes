@@ -17,7 +17,6 @@ class CourseScreen extends StatefulWidget {
 
 class CourseScreenState extends State<CourseScreen> {
   @override
-
   Widget build(BuildContext context) {
     return ViewModelBuilder<CoursesViewModel>.reactive(
       viewModelBuilder: () => CoursesViewModel(),
@@ -159,7 +158,7 @@ class CourseScreenState extends State<CourseScreen> {
                           ),
                           // GraphQLProvider.of(context)
                           GraphQLProvider(
-                            client: client,
+                            client: GraphQLConfiguration().client,
                             child: Query(
                                 options: QueryOptions(
                                   documentNode: gql(allCourses),

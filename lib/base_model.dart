@@ -37,12 +37,12 @@ class BaseModel extends ChangeNotifier {
         });
   }
 
-   showErrorDialogue({BuildContext context, message, Function onTap}) {
+  showErrorDialogue({BuildContext context, message, Function onTap}) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Am error occured"),
+            title: Text("An error occured"),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[

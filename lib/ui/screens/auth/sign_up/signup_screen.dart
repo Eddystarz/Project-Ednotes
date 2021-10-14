@@ -41,7 +41,7 @@ class SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: Theme.of(context).accentColor,
           body: SingleChildScrollView(
             child: GraphQLProvider(
-              client: client,
+              client: GraphQLConfiguration().client,
               child: Container(
                 margin: EdgeInsets.only(top: 70.0, left: 20, right: 20),
                 child: Column(

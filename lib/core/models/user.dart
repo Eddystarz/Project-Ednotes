@@ -18,6 +18,7 @@ class User {
 // isActive: Boolean
 // createdAt: DateTime!
 // updatedAt: DateTime!
+  @JsonKey(name: "_id")
   String id;
   String firstName;
   String lastName;
@@ -32,7 +33,6 @@ class User {
   DateTime createdAt;
   DateTime updatedAt;
 
-  
   User(
       {@required this.firstName,
       @required this.lastName,

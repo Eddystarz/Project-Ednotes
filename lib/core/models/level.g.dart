@@ -8,13 +8,13 @@ part of 'level.dart';
 
 Level _$LevelFromJson(Map<String, dynamic> json) {
   return Level(
-    id: json['id'] as String,
+    id: json['_id'] as String,
     faculty: json['faculty'] == null
         ? null
         : Faculty.fromJson(json['faculty'] as Map<String, dynamic>),
-    department: json['department'] == null
+    department: json['dept'] == null
         ? null
-        : Department.fromJson(json['department'] as Map<String, dynamic>),
+        : Department.fromJson(json['dept'] as Map<String, dynamic>),
     name: json['name'] as String,
     description: json['description'] as String,
     students: (json['students'] as List)?.map((e) => e as String)?.toList(),
@@ -22,9 +22,9 @@ Level _$LevelFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$LevelToJson(Level instance) => <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'faculty': instance.faculty,
-      'department': instance.department,
+      'dept': instance.department,
       'name': instance.name,
       'description': instance.description,
       'students': instance.students,

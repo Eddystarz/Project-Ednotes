@@ -18,7 +18,7 @@ class Course {
 // name: String
 // description: String
 // semester: String
-
+@JsonKey(name:"_id")
   String id;
   School school;
   Faculty faculty;

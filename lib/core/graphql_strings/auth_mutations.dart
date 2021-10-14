@@ -36,4 +36,14 @@ class AuthMutations {
     value
   }
 }""";
+
+
+  String logout = """ 
+mutation logout(){
+  logout(){
+    message,
+    value
+  }
+}
+  """;
 }

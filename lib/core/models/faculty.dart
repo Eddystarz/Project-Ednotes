@@ -10,6 +10,7 @@ class Faculty {
 // school: School!
 // name: String!
 // description: Str
+@JsonKey(name:"_id")
   String id;
   String school;
   String name;

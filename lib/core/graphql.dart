@@ -80,9 +80,32 @@ class GraphQLConfiguration {
     return client;
   }
 
-  GraphQLClient clientToQuery() {
+  Future<AuthLink> _getAuthLink() async {
+    String _getAuthToken;
+    if (_authService.authModel.token != null) {
+      final token = _authService.authModel.token;
+      if (token.isNotEmpty) {
+        _getAuthToken = "Bearer $token";
+      } else {
+        _getAuthToken = "";
+      }
+    }
+    return AuthLink(
+      headerKey: "Authorization",
+      getToken: () => _getAuthToken,
+    );
+  }
+
+  Future<GraphQLClient> clientToQuery() async {
+    // HttpLink httpLink = HttpLink(
+    //   uri: 'https://ednotes-api.herokuapp.com/graphql/',
+    //   // headers: {"Authorization": "Bearer ${_authService?.authModel?.token}"}
+    // );
     return GraphQLClient(
-        link: link,
+        link: await _getAuthLink().then((value) {
+          return value.concat(
+              HttpLink(uri: 'https://ednotes-api.herokuapp.com/graphql/'));
+        }),
         cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject));
   }
 
@@ -93,10 +116,12 @@ class GraphQLConfiguration {
   }) async {
     try {
       QueryResult queryResult;
-      queryResult = await clientToQuery().mutate(MutationOptions(
-        documentNode: gql(mutationDOcument),
-        variables: data,
-      ));
+      queryResult = await clientToQuery().then((value) {
+        return value.mutate(MutationOptions(
+          documentNode: gql(mutationDOcument),
+          variables: data,
+        ));
+      });
       if (queryResult.hasException) {
         // print(queryResult.exception);
         return ErrorModel(queryResult.exception.toString());
@@ -116,10 +141,12 @@ class GraphQLConfiguration {
     Map<String, dynamic> data,
   }) async {
     try {
-      QueryResult queryResult = await clientToQuery().query(QueryOptions(
-        documentNode: gql(queryDocumnet),
-        variables: data,
-      ));
+      QueryResult queryResult = await clientToQuery().then((value) {
+        return value.query(QueryOptions(
+          documentNode: gql(queryDocumnet),
+          variables: data,
+        ));
+      });
       if (queryResult.hasException) {
         return ErrorModel(queryResult.exception.toString());
       } else {
