@@ -94,13 +94,66 @@ class UserMutations {
 """;
 
   String createStudenProfile = """
-  mutation createStudentProfile(\$state:String!,\$school:ID!,\$faculty:ID!,\$dept:ID!,\$level:ID!){
-    createStudentProfile(state:\$state,school:\$school,faculty:\$faculty,dept:\$dept,level:\$level){
+   mutation createStudentProfile(\$state: String!, \$school: ID!, \$faculty: ID!, \$dept: ID!, \$level: ID!) {
+      createStudentProfile(input:{state: \$state, school: \$school, faculty: \$faculty,dept: \$dept,level: \$level}){
       message,
       value,
-      student,
+      student{
+        _id,
+        user{
+            firstName,
+            lastName,
+            username,
+            email,
+            phoneNumber,
+            userType,
+        },
+        state,
+        school{
+          _id
+        },
+        faculty{
+          _id,
+        },
+        dept{
+          _id,
+        },
+        level{
+          _id
+        }
+      },
       token
     }
   }
+""";
+
+  String getStudent = """
+query{
+student
+{
+  _id,
+  state
+  dept{
+    _id,
+    name
+  },
+  faculty{
+_id,
+  name
+  },
+school{
+  _id,
+  name
+}
+  user{
+    _id
+    userType
+    firstName,
+   lastName
+    username,
+    email
+  }
+}
+}
 """;
 }

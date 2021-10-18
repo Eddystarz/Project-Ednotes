@@ -24,7 +24,7 @@ class VerifyOtpScreenViewModel extends BaseModel {
 
   getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    authToken = prefs.getString('token');
+    authToken = prefs.getString('token')!;
     notifyListeners();
   }
 
@@ -54,13 +54,15 @@ class VerifyOtpScreenViewModel extends BaseModel {
       setLoading(false);
       showErrorDialogue(message: result.error, context: context, onTap: () {});
     } else if (result.data['confirmEmail']['value'] == true) {
-      createStudentProfile(context);
+      // createStudentProfile(context);
       setLoading(false);
       showDialogue(
           message: result.data['confirmEmail']['message'],
           context: context,
           onTap: () {
-            ExtendedNavigator.of(context).replace(Routes.loginScreen);
+            // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+                // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+         AutoRouter.of(context).replace(const LoginScreenRoute());
           });
     }
 

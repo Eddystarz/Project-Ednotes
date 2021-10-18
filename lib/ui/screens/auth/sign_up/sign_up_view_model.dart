@@ -4,6 +4,7 @@ import 'package:edtech/core/models/error_model.dart';
 import 'package:edtech/core/services/auth_service.dart';
 import 'package:edtech/locator.dart';
 import 'package:edtech/router/router.gr.dart';
+import 'package:edtech/ui/screens/auth/verify/verify_opt_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignupViewModel extends BaseModel {
@@ -11,7 +12,7 @@ class SignupViewModel extends BaseModel {
   bool autovalidate = false;
   bool isLoading = false;
 
-  String errorMessage;
+  String? errorMessage;
 
   setIsLoading(val) {
     isLoading = val;
@@ -35,20 +36,21 @@ class SignupViewModel extends BaseModel {
     if (result['studentSignup']['value'] == false) {
       print(result);
       showErrorDialogue(
-          context: context,
-          message: result['studentSignup']['message']);
+          context: context, message: result['studentSignup']['message']);
     } else if (result['studentSignup']['value'] == true) {
-      ExtendedNavigator.of(context).replace(Routes.loginScreen);
+      // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+          // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+         AutoRouter.of(context).replace(const LoginScreenRoute());
     }
   }
 
   signUp(
-      {String firstName,
-      String lastName,
-      String userName,
-      String email,
-      String phone,
-      String password,
+      {String? firstName,
+      String? lastName,
+      String? userName,
+      String? email,
+      String? phone,
+      String? password,
       context}) async {
     var payload = {
       'firstName': firstName,
@@ -65,18 +67,19 @@ class SignupViewModel extends BaseModel {
       print(result.error);
       setBusy(false);
       return showErrorDialogue(
-          context: context, message: result.error);
+          context: context, message: result.error, onTap: () {});
     } else if (result.data['signup']['value'] == true) {
       print(result.data);
       setBusy(false);
-      showDialogue(
-          context: context,
-          message: result.data['signup']['message'],
-          onTap: () {
-            ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
-                arguments:
-                    VerifyEmailOtpArguments(timerOff: false, email: email));
-          });
+      // showDialogue(
+      //     context: context,
+      //     message: result.data['signup']['message'],
+      //     onTap: () {
+      // ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
+      //     arguments: VerifyEmailOtpArguments(timerOff: false, email: email!));
+          // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+         AutoRouter.of(context).replace( VerifyEmailOtpRoute(timerOff:false,email:email));
+      // });
     }
   }
 

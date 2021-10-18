@@ -2,9 +2,7 @@ import 'package:edtech/core/models/faculty.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'department.g.dart';
-
 
 @JsonSerializable()
 class Department {
@@ -13,12 +11,12 @@ class Department {
 // faculty: Faculty!
 // name: String!
 // description: String!
-
-  String id;
-  String school;
-  Faculty faculty;
-  String description;
-  String name;
+  @JsonKey(name: "_id")
+  String? id;
+  String? school;
+  Faculty? faculty;
+  String? description;
+  String? name;
 
   Department({@required this.id, this.name, this.faculty, this.description});
 

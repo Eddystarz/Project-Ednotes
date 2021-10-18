@@ -11,7 +11,7 @@ class LoginViewModel extends BaseModel {
   final AuthService _authService = locator<AuthService>();
 
   bool isLoading = false;
-  String errorMessage;
+  String? errorMessage;
 
   setIsLoading(val) {
     isLoading = val;
@@ -53,7 +53,7 @@ class LoginViewModel extends BaseModel {
 //    "email":emailController.text,
   //       "password":passwordController.text
 
-  login({String email, String password, context}) async {
+  login({String? email, String? password, context}) async {
     var payload = {
       "email": email,
       "password": password,
@@ -74,8 +74,9 @@ class LoginViewModel extends BaseModel {
       if (result.error
           .toString()
           .contains('Unverified email adress, check you email for code !')) {
-        ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
-            arguments: VerifyEmailOtpArguments(timerOff: true, email: email));
+        // ExtendedNavigator.of(context).replace(Routes.verifyEmailOtp,
+            // arguments: VerifyEmailOtpArguments(timerOff: true, email: email!));
+             AutoRouter.of(context).replace( VerifyEmailOtpRoute(timerOff:false,email:email));
       }
     } else {
       setBusy(false);
@@ -85,7 +86,11 @@ class LoginViewModel extends BaseModel {
       _authService.setAndSaveToken(
           val: result.data['login']['message'],
           firstname: result.data['login']['user']['firstName']);
-      ExtendedNavigator.of(context).replace(Routes.dashboard);
+      // ExtendedNavigator.of(context).replace(Routes.dashboard);
+       AutoRouter.of(context).replace( const DashboardRoute());
+
+
+
     }
   }
 }

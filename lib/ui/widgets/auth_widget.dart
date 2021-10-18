@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 class AuthTextField extends StatefulWidget {
   const AuthTextField({
-    Key key,
+    Key? key,
     @required this.controller,
     this.hintText,
     this.initialValue,
@@ -30,21 +30,21 @@ class AuthTextField extends StatefulWidget {
     this.textColor, this.labelColor,
   }) : super(key: key);
 
-  final TextEditingController controller;
-  final String hintText;
-  final String initialValue;
-  final String label;
+  final TextEditingController? controller;
+  final String? hintText;
+  final String? initialValue;
+  final String? label;
 
-  final Widget prefix;
-  final Widget suffix;
-  final Function suffixAction;
+  final Widget? prefix;
+  final Widget? suffix;
+  final Function? suffixAction;
 
-  final TextInputType inputType;
-  final TextCapitalization textCapitalization;
-  final FormFieldValidator validator;
-  final List<TextInputFormatter> inputFormatters;
-  final bool obscureText;
-  final bool isEnabled;
+  final TextInputType? inputType;
+  final TextCapitalization? textCapitalization;
+  final FormFieldValidator? validator;
+  final List<TextInputFormatter>? inputFormatters;
+  final bool? obscureText;
+  final bool? isEnabled;
   final color;
   final textColor;
   final labelColor;
@@ -52,20 +52,20 @@ class AuthTextField extends StatefulWidget {
   final fontSize;
   //fontSize isn't uesd as at now
   final fillColor;
-  final void Function(String) onChanged;
-  final void Function(String) onSubmitted;
-  final bool centerText;
-  final bool readOnly;
-  final String errorMessage;
+  final void Function(String)? onChanged;
+  final void Function(String)? onSubmitted;
+  final bool? centerText;
+  final bool? readOnly;
+  final String? errorMessage;
 
-  final void Function(String) onSaved;
+  final void Function(String)? onSaved;
 
   @override
   _AuthTextFieldState createState() => _AuthTextFieldState();
 }
 
 class _AuthTextFieldState extends State<AuthTextField> {
- String error;
+ String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.label,
+          widget.label!,
           style: TextStyle(
               color: widget.labelColor ?? Colors.white,
               fontSize: 17,
@@ -85,10 +85,10 @@ class _AuthTextFieldState extends State<AuthTextField> {
             // The validator receives the text that the user has entered.
 
             cursorColor: Colors.black,
-            readOnly: widget.readOnly,
+            readOnly: widget.readOnly!,
             style: TextStyle(color:widget.textColor?? Colors.white),
             keyboardType: widget.inputType,
-            obscureText: widget.obscureText,
+            obscureText: widget.obscureText!,
             inputFormatters: widget.inputFormatters,
             decoration: InputDecoration(
               //  errorText: widget.errorMessage,
@@ -115,7 +115,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
               suffix: widget.suffix == null
                   ? null
                   : InkWell(
-                      onTap: widget.suffixAction,
+                      onTap:()=> widget.suffixAction!(),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: widget.suffix,
@@ -123,26 +123,26 @@ class _AuthTextFieldState extends State<AuthTextField> {
                     ),
             ),
 
-            validator: (String val) {
+            validator: (String? val) {
               // For optional fields in forms, don't validate.
               // Just return a null error text. This means there is no validation
               // error text to display
               if (widget.validator == null) return null;
 
               setState(() {
-                error = widget.validator(val);
+                error = widget.validator!(val);
               });
               return error;
             },
 
-            onSaved: (String value) {
-              widget.onSaved(value);
+            onSaved: (String? value) {
+              widget.onSaved!(value!);
               setState(() {
                 error = null;
               });
             },
             onChanged: (String val) {
-              widget.onChanged(val);
+              widget.onChanged!(val);
             },
             controller: widget.controller,
           ),

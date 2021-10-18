@@ -6,20 +6,18 @@ part of 'department.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Department _$DepartmentFromJson(Map<String, dynamic> json) {
-  return Department(
-    id: json['id'] as String,
-    name: json['name'] as String,
-    faculty: json['faculty'] == null
-        ? null
-        : Faculty.fromJson(json['faculty'] as Map<String, dynamic>),
-    description: json['description'] as String,
-  )..school = json['school'] as String;
-}
+Department _$DepartmentFromJson(Map<String, dynamic> json) => Department(
+      id: json['_id'] as String?,
+      name: json['name'] as String?,
+      faculty: json['faculty'] == null
+          ? null
+          : Faculty.fromJson(json['faculty'] as Map<String, dynamic>),
+      description: json['description'] as String?,
+    )..school = json['school'] as String?;
 
 Map<String, dynamic> _$DepartmentToJson(Department instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'school': instance.school,
       'faculty': instance.faculty,
       'description': instance.description,

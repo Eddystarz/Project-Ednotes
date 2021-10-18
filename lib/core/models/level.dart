@@ -15,13 +15,14 @@ class Level {
 // name: String!
 // description: String!
 // students: [ID]
-
-  String id;
-  Faculty faculty;
-  Department department;
-  String name;
-  String description;
-  List<String> students;
+@JsonKey(name:"_id")
+  String? id;
+  Faculty? faculty;
+  @JsonKey(name:"dept")
+  Department? department;
+  String? name;
+  String? description;
+  List<String>? students;
   Level({
      this.id,
      this.faculty,

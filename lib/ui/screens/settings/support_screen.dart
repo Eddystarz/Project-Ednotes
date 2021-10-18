@@ -122,13 +122,13 @@ class SupportScreenState extends State<SupportScreen>
                                   contentPadding: EdgeInsets.only(top: 18,bottom: 18,left: 15),
                                 ),
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  if (value!.isEmpty) {
                                     return 'Please enter your email';
                                   }
                                   // if(!RegExp())
                                   return null;
                                 },
-                                onSaved: (String value) {
+                                onSaved: (String? value) {
                                   // _email = value;
                                 },
                               ),
@@ -155,13 +155,13 @@ class SupportScreenState extends State<SupportScreen>
                                 ),
                                 maxLines: 5,
                                 validator: (value) {
-                                  if (value.isEmpty) {
+                                  if (value!.isEmpty) {
                                     return 'Please enter your email';
                                   }
                                   // if(!RegExp())
                                   return null;
                                 },
-                                onSaved: (String value) {
+                                onSaved: (String? value) {
                                   // _email = value;
                                 },
                               ),

@@ -38,16 +38,16 @@ class WelcomeScreenState extends State<WelcomeScreen> {
   }
   doFetch() {
       var content = Query(
-          options: QueryOptions(documentNode: gql(getCountry), pollInterval: 1
+          options: QueryOptions(document: gql(getCountry),
               // document: getUsers.getCountry(),pollInterval: 10
               ),
           builder: (QueryResult result,
-              {VoidCallback refetch, FetchMore fetchMore}) {
+              {VoidCallback? refetch, FetchMore? fetchMore}) {
             // return ListView.builder(
             //     itemCount: result.data.length,
             // );
 
-            if (result.loading) {
+            if (result.isLoading) {
               return Text('Loading');
             }
             if (result.hasException) {
@@ -62,7 +62,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
             }
             // prefs.getString('token')
             print(result.data);
-            var people = result.data['schools'];
+            var people = result.data!['schools'];
 
             // setState(() {
               loaded = true;

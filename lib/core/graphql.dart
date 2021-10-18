@@ -28,7 +28,7 @@ Future<void> savedToken() async {
 
   // test = prefs.getString('token');
   // print('I am calling token');
-  userToken = prefs.getString('token');
+  userToken = prefs.getString('token')!;
 
   MyApp.temporaryToken = userToken;
   // print('I am calling token');
@@ -43,36 +43,34 @@ Future<void> savedToken() async {
 
 Map<String, String> map = {};
 
-Map<String, String> headersTest() {
-  if (MyApp.tokenTempState == true) {
-    map.putIfAbsent(
-        'Authorization', () => "Bearer ${_authService?.authModel?.token}");
-  }
-  return map;
-}
+// Map<String, String> headersTest() {
+//   if (MyApp.tokenTempState == true) {
+//     map.putIfAbsent(
+//         'Authorization', () => "Bearer ${_authService.authModel.token}");
+//   }
+//   return map;
+// }
 
 class GraphQLConfiguration {
-  static final AuthService _authService = locator<AuthService>();
-  // static final AuthLink authLink =
-  //     AuthLink(getToken: () => 'Bearer  ${_authService.authModel.token}');
+  static final AuthService _authService = AuthService();
+  static final AuthLink authLink =
+      AuthLink(getToken: () => 'Bearer  ${_authService.authModel.token}');
 
   static HttpLink httpLink = HttpLink(
-      uri: 'https://ednotes-api.herokuapp.com/graphql/',
-      headers: {"Authorization": "Bearer ${_authService?.authModel?.token}"});
+    'https://ednotes-api.herokuapp.com/graphql/',
+    // defaultHeaders: {"Authorization": "Bearer ${_authService.authModel.token}"}
+  );
 
-  // var link = authLink.concat(httpLink);
+  var link = authLink.concat(httpLink);
 
   ValueNotifier<GraphQLClient> client = ValueNotifier(
       // cache: InMemoryCache(),
-      GraphQLClient(
-    cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
-    link: httpLink,
-  ));
+      GraphQLClient(cache: GraphQLCache(store: HiveStore()), link: httpLink));
 
   static ValueNotifier<GraphQLClient> initailizeClient() {
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
-        cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
+        cache: GraphQLCache(store: HiveStore()),
         link: httpLink,
       ),
     );
@@ -80,29 +78,56 @@ class GraphQLConfiguration {
     return client;
   }
 
-  GraphQLClient clientToQuery() {
+  Future<AuthLink> _getAuthLink() async {
+    String? _getAuthToken;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token')??"";
+    if (token.isNotEmpty) {
+      _getAuthToken = "Bearer $token";
+    } else {
+      _getAuthToken = "";
+    }
+
+    print(" heres the token from graphql $_getAuthToken");
+    return AuthLink(
+      headerKey: "Authorization",
+      getToken: () => _getAuthToken,
+    );
+  }
+
+  Future<GraphQLClient> clientToQuery() async {
+    // HttpLink httpLink = HttpLink(
+    //   uri: 'https://ednotes-api.herokuapp.com/graphql/',
+    //   // headers: {"Authorization": "Bearer ${_authService?.authModel?.token}"}
+    // );
     return GraphQLClient(
-        link: link,
-        cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject));
+        link: await _getAuthLink().then((value) {
+          return value
+              .concat(HttpLink('https://ednotes-api.herokuapp.com/graphql/'));
+        }),
+        cache: GraphQLCache(store: HiveStore()));
   }
 
   // ignore: missing_return
   gpMutate({
-    @required String mutationDOcument,
-    Map<String, dynamic> data,
+    @required String? mutationDOcument,
+    Map<String, dynamic>? data,
   }) async {
     try {
       QueryResult queryResult;
-      queryResult = await clientToQuery().mutate(MutationOptions(
-        documentNode: gql(mutationDOcument),
-        variables: data,
-      ));
+      queryResult = await clientToQuery().then((value) {
+        return value.mutate(MutationOptions(
+          document: gql(mutationDOcument!),
+          variables: data ?? {},
+        ));
+      });
       if (queryResult.hasException) {
         // print(queryResult.exception);
         return ErrorModel(queryResult.exception.toString());
       } else {
         // print(queryResult.data);
-        return SuccessModel(queryResult.data.data);
+        return SuccessModel(queryResult.data!);
       }
     } catch (e) {
       log('Error $e');
@@ -112,14 +137,17 @@ class GraphQLConfiguration {
 
   // ignore: missing_return
   gpQuery({
-    @required String queryDocumnet,
-    Map<String, dynamic> data,
+    @required String? queryDocumnet,
+    Map<String, dynamic>? data,
   }) async {
     try {
-      QueryResult queryResult = await clientToQuery().query(QueryOptions(
-        documentNode: gql(queryDocumnet),
-        variables: data,
-      ));
+      QueryResult queryResult = await clientToQuery().then((value) {
+        return value.query(QueryOptions(
+          document: gql(queryDocumnet!),
+          variables: data ?? {},
+        ));
+      });
+
       if (queryResult.hasException) {
         return ErrorModel(queryResult.exception.toString());
       } else {
@@ -132,24 +160,24 @@ class GraphQLConfiguration {
   }
 }
 
-HttpLink link = HttpLink(
-    uri: 'https://ednotes-api.herokuapp.com/graphql/',
-    headers: {"Authorization": "Bearer ${_authService.authModel.token}"});
+HttpLink link = HttpLink('https://ednotes-api.herokuapp.com/graphql/',
+    defaultHeaders: {
+      "Authorization": "Bearer ${_authService.authModel.token}"
+    });
 
 ValueNotifier<GraphQLClient> client = ValueNotifier(
     // cache: InMemoryCache(),
     GraphQLClient(
-  cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
+  cache: GraphQLCache(store: HiveStore()),
   link: link,
 ));
 
 GraphQLClient myClient() {
-  return GraphQLClient(cache: InMemoryCache(), link: link);
+  return GraphQLClient(cache: GraphQLCache(store: HiveStore()), link: link);
 }
 
-ValueNotifier<GraphQLClient> clientToQuery = ValueNotifier(GraphQLClient(
-    link: link,
-    cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject)));
+ValueNotifier<GraphQLClient> clientToQuery = ValueNotifier(
+    GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore())));
 
 String getCountry = """
       query{

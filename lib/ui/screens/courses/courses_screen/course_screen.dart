@@ -17,7 +17,6 @@ class CourseScreen extends StatefulWidget {
 
 class CourseScreenState extends State<CourseScreen> {
   @override
-
   Widget build(BuildContext context) {
     return ViewModelBuilder<CoursesViewModel>.reactive(
       viewModelBuilder: () => CoursesViewModel(),
@@ -162,13 +161,13 @@ class CourseScreenState extends State<CourseScreen> {
                             client: client,
                             child: Query(
                                 options: QueryOptions(
-                                  documentNode: gql(allCourses),
+                                  document: gql(allCourses),
                                   // fetchPolicy: FetchPolicy.networkOnly,
                                 ),
-                                builder: (QueryResult result,
-                                    {VoidCallback refetch,
-                                    FetchMore fetchMore}) {
-                                  if (result.loading) {
+                                builder: (QueryResult? result,
+                                    {VoidCallback? refetch,
+                                    FetchMore? fetchMore}) {
+                                  if (result!.isLoading) {
                                     return CircularProgressIndicator();
                                   }
                                   if (result.hasException) {
@@ -242,7 +241,7 @@ class CourseScreenState extends State<CourseScreen> {
                                                           children: [
                                                             Center(
                                                               child: Text(
-                                                                course.name,
+                                                                course.name!,
                                                                 style:
                                                                     TextStyle(
                                                                   fontSize: 16,
@@ -263,7 +262,7 @@ class CourseScreenState extends State<CourseScreen> {
                                                             Center(
                                                               child: Text(
                                                                 course
-                                                                    .description,
+                                                                    .description!,
                                                               ),
                                                             ),
                                                           ],
@@ -324,7 +323,7 @@ class CourseScreenState extends State<CourseScreen> {
                   child: new Icon(Icons.search, color: Colors.white),
                 )),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter your email ';
               }
               // if(!RegExp())

@@ -18,15 +18,15 @@ class Course {
 // name: String
 // description: String
 // semester: String
-
-  String id;
-  School school;
-  Faculty faculty;
-  Department department;
-  Level level;
-  String name;
-  String description;
-  String semester;
+@JsonKey(name:"_id")
+  String? id;
+  School? school;
+  Faculty? faculty;
+  Department? department;
+  Level? level;
+  String? name;
+  String? description;
+  String? semester;
   Course({
      this.id,
      this.school,
