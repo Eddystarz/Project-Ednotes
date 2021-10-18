@@ -19,19 +19,19 @@ class User {
 // createdAt: DateTime!
 // updatedAt: DateTime!
   @JsonKey(name: "_id")
-  String id;
-  String firstName;
-  String lastName;
-  String username;
-  String email;
-  bool isVerified;
-  bool isActive;
+  String? id;
+  String? firstName;
+  String? lastName;
+  String? username;
+  String? email;
+  bool? isVerified;
+  bool? isActive;
   // String age;
-  String phoneNumber;
-  String userType;
+  String? phoneNumber;
+  String? userType;
 
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   User(
       {@required this.firstName,
@@ -50,9 +50,9 @@ class User {
 }
 
 class AuthToken {
-  String token;
+  String? token;
 
-  AuthToken({this.token});
+  AuthToken({ this.token});
   factory AuthToken.fromJson(String token) {
     return AuthToken(
       token: token,

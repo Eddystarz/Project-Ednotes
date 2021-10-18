@@ -12,10 +12,10 @@ class DashBoardViewModel extends BaseModel {
   final AuthService authService = locator<AuthService>();
 
   String firstname = '';
-  User get user => authService.currentUser.user;
+  User? get user => authService.currentUser.user;
 
   Future<void> fetchLoggedInUser() async {
-    firstname = authService.currentUser.user.firstName;
+    firstname = authService.currentUser.user!.firstName!;
     notifyListeners();
 
     // print(firstname);
@@ -28,9 +28,11 @@ class DashBoardViewModel extends BaseModel {
     }
     if (result is SuccessModel) {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', null);
-    ExtendedNavigator.of(context)
-        .pushAndRemoveUntil(Routes.loginScreen, (route) => false);
+    prefs.setString('token',' ');
+    // ExtendedNavigator.of(context)
+        // .pushAndRemoveUntil(Routes.loginScreen, (route) => false);
+            AutoRouter.of(context).pushAndPopUntil( const LoginScreenRoute(),predicate: (route)=>false);
+
     }
   }
 }

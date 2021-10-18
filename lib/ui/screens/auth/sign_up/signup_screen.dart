@@ -30,7 +30,7 @@ class SignUpScreenState extends State<SignUpScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
 
-  String _passwordConfirm, _number;
+  String? _passwordConfirm, _number;
 
   bool loading = false;
   @override
@@ -41,7 +41,7 @@ class SignUpScreenState extends State<SignUpScreen> {
           backgroundColor: Theme.of(context).accentColor,
           body: SingleChildScrollView(
             child: GraphQLProvider(
-              client: GraphQLConfiguration().client,
+              client: client,
               child: Container(
                 margin: EdgeInsets.only(top: 70.0, left: 20, right: 20),
                 child: Column(
@@ -130,7 +130,7 @@ class SignUpScreenState extends State<SignUpScreen> {
                                         top: 22, bottom: 22, left: 15),
                                   ),
                                   validator: (value) {
-                                    if (value.isEmpty) {
+                                    if (value!.isEmpty) {
                                       return 'Please enter your phone number';
                                     }
                                     // if(!RegExp())

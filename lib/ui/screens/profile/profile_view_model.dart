@@ -13,17 +13,18 @@ class ProfileViewModel extends BaseModel {
   final UserService _userService = locator<UserService>();
 
   Student get user => _authService.currentUser;
-  Student student;
+  Student? student;
 
-  getUser({BuildContext context}) async {
+  getUser({BuildContext? context}) async {
     final result = await _userService.getStudent();
     if (result is ErrorModel) {
-      showErrorDialogue(message: result.error, onTap: () {});
+      showErrorDialogue(context: context!, message: result.error, onTap: () {});
     }
     if (result is SuccessModel) {
       var data = result.data['student'];
+      print(data);
       student = Student.fromJson(data);
-      _authService.setCurrentStudent(student);
+      _authService.setCurrentStudent(student!);
       notifyListeners();
     }
   }

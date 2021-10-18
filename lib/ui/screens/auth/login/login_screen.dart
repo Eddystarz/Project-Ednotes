@@ -23,7 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
   // String inputValue = new InputValue(text: 'via Dei Giacinti n° 8');
   bool loading = false;
   final _formKey = GlobalKey<FormState>();
-  String message;
+  String? message;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -190,10 +190,10 @@ class LoginScreenState extends State<LoginScreen> {
                                         ),
                                 ),
                                 onPressed: () {
-                                  if (!_formKey.currentState.validate()) {
+                                  if (!_formKey.currentState!.validate()) {
                                     return null;
                                   }
-                                  _formKey.currentState.save();
+                                  _formKey.currentState!.save();
                                   model.login(
                                       email: emailController.text,
                                       password: passwordController.text,
@@ -282,13 +282,13 @@ class LoginScreenState extends State<LoginScreen> {
           contentPadding: EdgeInsets.only(top: 22, bottom: 22, left: 15),
         ),
         validator: (value) {
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return 'Please enter your email';
           }
           // if(!RegExp())
           return null;
         },
-        onSaved: (String value) {
+        onSaved: (String? value) {
           // _email = value;
         },
         controller: emailController,
@@ -316,12 +316,12 @@ class LoginScreenState extends State<LoginScreen> {
         ),
         obscureText: true,
         validator: (value) {
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return 'Please enter your password';
           }
           return null;
         },
-        onSaved: (String value) {
+        onSaved: (String? value) {
           // _password = value;
         },
         controller: passwordController,

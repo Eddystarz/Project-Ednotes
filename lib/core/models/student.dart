@@ -10,15 +10,15 @@ part 'student.g.dart';
 @JsonSerializable()
 class Student {
   @JsonKey(name:"_id")
-  String id;
-  User user;
-  String state;
-  School school;
-  Faculty faculty;
-  Department dept;
-  Level level;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String? id;
+  User? user;
+  String? state;
+  School? school;
+  Faculty? faculty;
+  Department? dept;
+  Level? level;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   Student({
     this.id,
     this.user,

@@ -17,15 +17,15 @@ class School {
 // departments: [Dept]
 // levels: [Level]
 @JsonKey(name:"_id")
-  String id;
-  String name;
+  String? id;
+  String? name;
 
-  String description;
-  String location;
-  User createdBy;
-  List<Faculty> faculties;
-  List<Department> departments;
-  List<Level> levels;
+  String? description;
+  String? location;
+  User? createdBy;
+  List<Faculty?>? faculties;
+  List<Department?>? departments;
+  List<Level?>? levels;
 
   School(
       {this.id,

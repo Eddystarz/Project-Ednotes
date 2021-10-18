@@ -17,13 +17,13 @@ class AuthService {
   final GraphQLConfiguration config = locator<GraphQLConfiguration>();
 
   Student _currentUser = Student();
-  AuthToken _authModel = AuthToken();
+  AuthToken _authModel = AuthToken(token: '');
 
   Student get currentUser => _currentUser;
   AuthToken get authModel => _authModel;
 
   setCurrentUser(User user) {
-    _currentUser?.user = user;
+    _currentUser.user = user;
     print(currentUser);
   }
 
@@ -35,23 +35,23 @@ class AuthService {
     SharedPreferences prefs;
     _authModel = AuthToken.fromJson(val);
     prefs = await SharedPreferences.getInstance();
-    prefs.setString('token', authModel.token);
+    prefs.setString('token', authModel.token!);
     var s = json.encode(_currentUser);
-    await prefs.setString('profile', s);
+    prefs.setString('profile', s);
     //   prefs.setString('token', result['login']['message']);
     prefs.setString('firstname', firstname);
-    print("AuthToken from login :::::::" + authModel.token);
+    print("AuthToken from login :::::::" + authModel.token!);
   }
 
   alreadyLoggedIn() async {
     SharedPreferences prefs;
     prefs = await SharedPreferences.getInstance();
     var d = prefs.getString('profile');
-    Student student = Student.fromJson(json.decode(d));
+    Student student = Student.fromJson(json.decode(d!));
     _currentUser = student;
     print(_currentUser);
     var t = prefs.getString('token');
-    final AuthToken auth = AuthToken.fromJson(t);
+    final AuthToken auth = AuthToken.fromJson(t!);
     print("TOKEN AGBA::::::::: ${auth.token}");
     _authModel = auth;
     print('refresh');
@@ -121,6 +121,7 @@ class AuthService {
   }
 
   logout() async {
+      GraphQLConfiguration config = GraphQLConfiguration();
     var result =
         await config.gpMutate(mutationDOcument: AuthMutations().logout);
     if (result is ErrorModel) {

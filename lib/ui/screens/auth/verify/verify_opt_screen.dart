@@ -11,10 +11,10 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:stacked/stacked.dart';
 
 class VerifyEmailOtp extends StatefulWidget {
-  final bool timerOff;
-  final String email;
+  final bool ?timerOff;
+  final String? email;
 
-  const VerifyEmailOtp({Key key, this.timerOff, this.email}) : super(key: key);
+  const VerifyEmailOtp({Key? key, this.timerOff, this.email}) : super(key: key);
 
   @override
   _VerifyEmailOtpState createState() => _VerifyEmailOtpState();
@@ -45,7 +45,7 @@ class _VerifyEmailOtpState extends State<VerifyEmailOtp> {
     return ViewModelBuilder<VerifyOtpScreenViewModel>.reactive(
       disposeViewModel:false,
       onModelReady: (h) {
-        if (widget.timerOff) h.setTimmerStopped(true);
+        if (widget.timerOff!) h.setTimmerStopped(true);
       },
       viewModelBuilder: () => VerifyOtpScreenViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -137,7 +137,9 @@ class _VerifyEmailOtpState extends State<VerifyEmailOtp> {
                             onEnd: () {
                               model.setTimmerStopped(true);
                             },
-                            widgetBuilder: (_, CurrentRemainingTime time) {
+                            widgetBuilder:(context,time){
+                              
+                              // ignore: unnecessary_null_comparison
                               if (time == null) {
                                 return Center(
                                     child: Text('Code sent has expired',
@@ -150,6 +152,7 @@ class _VerifyEmailOtpState extends State<VerifyEmailOtp> {
                                     style: TextStyle(
                                         fontSize: 18.0, color: Colors.white)),
                               );
+                            
                             },
                             textStyle:
                                 TextStyle(fontSize: 18.0, color: Colors.white),

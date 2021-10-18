@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
+// import 'package:edtech/router/router.gr.dart';
 import 'package:edtech/router/router.gr.dart';
 import 'package:edtech/ui/screens/profile/profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -18,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return ViewModelBuilder<ProfileViewModel>.reactive(
       onModelReady: (model) {
-        model.getUser();
+        model.getUser(context: context);
       },
       viewModelBuilder: () => ProfileViewModel(),
       builder: (context, model, child) => Scaffold(
@@ -26,9 +27,10 @@ class _ProfilePageState extends State<ProfilePage> {
           preferredSize: Size.fromHeight(50.0),
           child: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => ExtendedNavigator.of(context).pop(),
-              ),
+                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    AutoRouter.of(context).pop();
+                  }),
               backgroundColor: Colors.transparent,
               elevation: 0,
               actions: [
@@ -91,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Container(
                                 width: size.width - 120,
                                 child: Text(
-                                  '${model.user.user.firstName} ${model.user.user.lastName}',
+                                  '${model.user.user!.firstName} ${model.user.user!.lastName}',
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontSize: 19,
@@ -103,8 +105,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           GestureDetector(
                               onTap: () {
-                                ExtendedNavigator.of(context)
-                                    .push(Routes.editProfile);
+                                // ExtendedNavigator.of(context)
+                                //     .push(Routes.editProfile);
+                                AutoRouter.of(context)
+                                    .push(const EditProfileRoute());
                               },
                               child: Icon(Icons.edit_outlined))
                         ],

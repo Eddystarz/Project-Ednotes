@@ -11,10 +11,10 @@ class Faculty {
 // name: String!
 // description: Str
 @JsonKey(name:"_id")
-  String id;
-  String school;
-  String name;
-  String description;
+  String? id;
+  String? school;
+  String? name;
+  String? description;
 
   Faculty({
     @required this.id,

@@ -11,17 +11,17 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({Key key}) : super(key: key);
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
   _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  String selectedSchool;
-  String selectedLevel;
-  String selectedFaculty;
-  String selectedDepartment;
+  String? selectedSchool;
+  String? selectedLevel;
+  String? selectedFaculty;
+  String? selectedDepartment;
   TextEditingController stateController = TextEditingController();
 
   @override
@@ -42,7 +42,11 @@ class _EditProfileState extends State<EditProfile> {
               child: AppBar(
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => ExtendedNavigator.of(context).pop(),
+                    onPressed: () {
+                          // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+         AutoRouter.of(context).pop();
+                    }
+                    //  ExtendedNavigator.of(context).pop(),
                   ),
                   backgroundColor: Colors.transparent,
                   elevation: 0,
@@ -91,7 +95,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     SizedBox(height: size.height * 0.01),
                     Text(
-                        "${model.currentUser.firstName}  ${model.currentUser.lastName}",
+                        "${model.currentUser!.firstName}  ${model.currentUser!.lastName}",
                         style: TextStyle(
                           fontSize: 15,
                         )),
@@ -104,7 +108,7 @@ class _EditProfileState extends State<EditProfile> {
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: size.height * 0.01),
-                    Text("${model.currentUser.email}",
+                    Text("${model.currentUser!.email}",
                         style: TextStyle(
                           fontSize: 15,
                         )),
@@ -117,7 +121,7 @@ class _EditProfileState extends State<EditProfile> {
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: size.height * 0.01),
-                    Text("${model.currentUser.username}",
+                    Text("${model.currentUser!.username}",
                         style: TextStyle(
                           fontSize: 15,
                         )),
@@ -247,12 +251,12 @@ class _EditProfileState extends State<EditProfile> {
                                     style: TextStyle(color: Colors.black),
                                     dropdownColor: Colors.white,
                                     items: model.schoolList
-                                        .map((item) => item.name)
-                                        .map((String value) {
+                                        .map((item) => item!.name)
+                                        .map((String? value) {
                                       return new DropdownMenuItem<String>(
                                         value: value,
                                         child: new Text(
-                                          value,
+                                          value ?? "",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       );
@@ -307,12 +311,12 @@ class _EditProfileState extends State<EditProfile> {
                                     style: TextStyle(color: Colors.black),
                                     dropdownColor: Colors.white,
                                     items: model.facultyList
-                                        .map((item) => item.name)
-                                        .map((String value) {
+                                        .map((item) => item!.name)
+                                        .map((String? value) {
                                       return new DropdownMenuItem<String>(
                                         value: value,
                                         child: new Text(
-                                          value,
+                                          value ?? "",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       );
@@ -368,12 +372,12 @@ class _EditProfileState extends State<EditProfile> {
                                     style: TextStyle(color: Colors.black),
                                     dropdownColor: Colors.white,
                                     items: model.departmentList
-                                        .map((item) => item.name)
-                                        .map((String value) {
+                                        .map((item) => item!.name)
+                                        .map((String? value) {
                                       return new DropdownMenuItem<String>(
                                         value: value,
                                         child: new Text(
-                                          value,
+                                          value?? "",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       );
@@ -428,19 +432,19 @@ class _EditProfileState extends State<EditProfile> {
                                     style: TextStyle(color: Colors.black),
                                     dropdownColor: Colors.white,
                                     items: model.levelList
-                                        .map((item) => item.name)
-                                        .map((String value) {
+                                        .map((item) => item!.name)
+                                        .map((String? value) {
                                       return new DropdownMenuItem<String>(
                                         value: value,
                                         child: new Text(
-                                          value,
+                                          value?? "",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       );
                                     }).toList(),
                                     onChanged: (newValue) {
                                       setState(() {
-                                        model.selectedLevel = newValue;
+                                        model.selectedLevel = newValue!;
                                       });
                                     },
                                   ),
@@ -505,9 +509,11 @@ class _EditProfileState extends State<EditProfile> {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         onPressed: () {
-                        model.numberOfLoads==1?  model.createStudentProfile(
-                              stateController.text, context):
-                          model.editprofile(stateController.text, context);
+                          model.numberOfLoads == 1
+                              ? model.createStudentProfile(
+                                  stateController.text, context)
+                              : model.editprofile(
+                                  stateController.text, context);
                         },
                         color: Theme.of(context).accentColor,
                         child: model.isLoading

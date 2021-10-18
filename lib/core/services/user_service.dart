@@ -15,7 +15,7 @@ class UserService {
     // GraphQLConfiguration config = GraphQLConfiguration();
     var result =
         await config.gpQuery(queryDocumnet: UserMutations().fetchSchools);
-    print(config.clientToQuery());
+    print(result);
     if (result is ErrorModel) {
       print(result.error);
       return ErrorModel(result.error);
@@ -119,6 +119,7 @@ class UserService {
   }
 
   getStudent() async {
+    // GraphQLConfiguration config = GraphQLConfiguration();
     var result =
         await config.gpQuery(queryDocumnet: UserMutations().getStudent);
     if (result is ErrorModel) {

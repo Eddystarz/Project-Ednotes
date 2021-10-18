@@ -76,7 +76,7 @@ class DashboardState extends State<Dashboard> {
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: () {
-                _scaffoldKey.currentState.openDrawer();
+                _scaffoldKey.currentState!.openDrawer();
               },
             ),
             backgroundColor: Colors.white,
@@ -342,8 +342,9 @@ class DashboardState extends State<Dashboard> {
                                       ),
                                     )),
                                 onTap: () {
-                                  ExtendedNavigator.of(context)
-                                      .push(Routes.courseScreen);
+                                  // ExtendedNavigator.of(context).replace(Routes.loginScreen);
+                                  AutoRouter.of(context)
+                                      .replace(const CourseScreenRoute());
                                 },
                               )
                             ],
@@ -755,13 +756,13 @@ class DashboardState extends State<Dashboard> {
                                 ),
                                 SizedBox(height: size.height * 0.02),
                                 Text(
-                                    '${model.user.firstName} ${model.user.lastName}',
+                                    '${model.user!.firstName} ${model.user!.lastName}',
                                     style: TextStyle(
                                         fontSize: 20.0,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600)),
                                 SizedBox(height: size.height * 0.01),
-                                Text('${model.user.email}',
+                                Text('${model.user!.email}',
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       color: Colors.grey,
@@ -775,8 +776,7 @@ class DashboardState extends State<Dashboard> {
                               color: Colors.white, fontSize: 15.5),
                         ),
                         onTap: () {
-                          ExtendedNavigator.of(context)
-                              .push(Routes.profilePage);
+                          AutoRouter.of(context).push(const ProfilePageRoute());
                         },
                       ),
                       ListTile(
@@ -956,7 +956,7 @@ class DashboardState extends State<Dashboard> {
               child: new Icon(Icons.search, color: Colors.white),
             )),
         validator: (value) {
-          if (value.isEmpty) {
+          if (value!.isEmpty) {
             return 'Please enter your email';
           }
           // if(!RegExp())

@@ -12,7 +12,7 @@ class BaseModel extends ChangeNotifier {
     }
   }
 
-  showDialogue({BuildContext context, message, Function onTap}) {
+  showDialogue({required BuildContext context, message, Function? onTap}) {
     showDialog(
         context: context,
         builder: (context) {
@@ -29,7 +29,7 @@ class BaseModel extends ChangeNotifier {
               TextButton(
                 child: Text('Close'),
                 onPressed: () {
-                  onTap() == null ? Navigator.of(context).pop() : onTap();
+                  onTap!() == null ? Navigator.of(context).pop() : onTap();
                 },
               ),
             ],
@@ -37,7 +37,7 @@ class BaseModel extends ChangeNotifier {
         });
   }
 
-  showErrorDialogue({BuildContext context, message, Function onTap}) {
+  showErrorDialogue({required BuildContext context, message, Function? onTap}) {
     showDialog(
         context: context,
         builder: (context) {
@@ -54,7 +54,7 @@ class BaseModel extends ChangeNotifier {
               TextButton(
                 child: Text('Close'),
                 onPressed: () {
-                  onTap() == null ? Navigator.of(context).pop() : onTap();
+                  onTap!() == null ? Navigator.of(context).pop() : onTap();
                 },
               ),
             ],

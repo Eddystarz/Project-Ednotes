@@ -20,19 +20,19 @@ class EditProfileViewModel extends BaseModel {
   final AuthService _authService = locator<AuthService>();
   final UserService _userService = locator<UserService>();
   int numberOfLoads = 0;
-  var schoolList = <School>[];
-  var departmentList = <Department>[];
-  var facultyList = <Faculty>[];
-  var levelList = <Level>[];
+  var schoolList = <School?>[];
+  var departmentList = <Department?>[];
+  var facultyList = <Faculty?>[];
+  var levelList = <Level?>[];
 
-  String selectDept;
-  String selectedSchool;
-  String selectedFaculty;
-  String selectedLevel;
-  School schooSelected;
-  Faculty facultySelected;
-  Department departmentSelected;
-  Level levelSelected;
+  String? selectDept;
+  String? selectedSchool;
+  String? selectedFaculty;
+  String? selectedLevel;
+  School? schooSelected;
+  Faculty? facultySelected;
+  Department? departmentSelected;
+  Level? levelSelected;
 
   bool isLoading = false;
 
@@ -43,7 +43,7 @@ class EditProfileViewModel extends BaseModel {
 
   updateNumber() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    numberOfLoads = prefs.getInt('loads')??0;
+    numberOfLoads = prefs.getInt('loads') ?? 0;
     numberOfLoads++;
     notifyListeners();
     saveNumberOfLoads();
@@ -55,12 +55,13 @@ class EditProfileViewModel extends BaseModel {
     prefs.setInt('loads', numberOfLoads);
   }
 
-  User get currentUser => _authService.currentUser.user;
+  User? get currentUser => _authService.currentUser.user;
 
   fetchSchools() async {
     final result = await _userService.getSchoolList();
+    print(result);
     if (result is ErrorModel) {
-      print(result.error);
+      print(result.error.toString());
     }
     var data = result.data['schools'];
     List<School> schools = List.from(data.map((item) => School.fromJson(item)));
@@ -87,13 +88,13 @@ class EditProfileViewModel extends BaseModel {
 
   setUserHere(String state) {
     _authService.currentUser.dept =
-        departmentList.firstWhere((element) => element.name == selectDept);
+        departmentList.firstWhere((element) => element!.name == selectDept);
     _authService.currentUser.faculty =
-        facultyList.firstWhere((element) => element.name == selectedFaculty);
+        facultyList.firstWhere((element) => element!.name == selectedFaculty);
     _authService.currentUser.school =
-        schoolList.firstWhere((element) => element.name == selectedSchool);
+        schoolList.firstWhere((element) => element!.name == selectedSchool);
     _authService.currentUser.level =
-        levelList.firstWhere((element) => element.name == selectedLevel);
+        levelList.firstWhere((element) => element!.name == selectedLevel);
     _authService.currentUser.state = state;
     notifyListeners();
   }
@@ -109,7 +110,7 @@ class EditProfileViewModel extends BaseModel {
     notifyListeners();
     selectedFaculty = null;
     schooSelected =
-        schoolList.firstWhere((element) => element.name == selectedSchool);
+        schoolList.firstWhere((element) => element!.name == selectedSchool);
     notifyListeners();
     fetchFaculty(selectedSchool);
   }
@@ -132,31 +133,31 @@ class EditProfileViewModel extends BaseModel {
 
   fetchFaculty(val) async {
     // schooSelected = schoolList.firstWhere((element) => element.name == val);
-    facultyList = schooSelected.faculties;
+    facultyList = schooSelected!.faculties!;
     notifyListeners();
   }
 
   fetchDepartment(val) async {
-    departmentList = schooSelected.departments
-        .where((element) => element.faculty.name == val)
+    departmentList = schooSelected!.departments!
+        .where((element) => element!.faculty!.name == val)
         .toList();
     notifyListeners();
   }
 
   fetchLevel(val) async {
-    levelList = schooSelected.levels
-        .where((element) => element.department.name == val)
+    levelList = schooSelected!.levels!
+        .where((element) => element!.department!.name == val)
         .toList();
     notifyListeners();
   }
 
   editprofile(String state, context) async {
-    var faculty = fetchObjectFromList(selectedFaculty, facultyList);
-    var dept = fetchObjectFromList(selectDept, departmentList);
-    var level = fetchObjectFromList(selectedLevel, levelList);
+    var faculty = fetchObjectFromList(selectedFaculty!, facultyList);
+    var dept = fetchObjectFromList(selectDept!, departmentList);
+    var level = fetchObjectFromList(selectedLevel!, levelList);
     final payload = {
       'state': state,
-      'school': schooSelected.id,
+      'school': schooSelected!.id,
       'faculty': faculty,
       'dept': dept,
       'level': level,
@@ -176,17 +177,18 @@ class EditProfileViewModel extends BaseModel {
           context: context,
           message: result.data['updateStudentProfile']['message'],
           onTap: () {});
-      ExtendedNavigator.of(context).replace(Routes.dashboard);
+
+      AutoRouter.of(context).replace(const DashboardRoute());
     }
   }
 
   createStudentProfile(String state, context) async {
-    var faculty = fetchObjectFromList(selectedFaculty, facultyList);
-    var dept = fetchObjectFromList(selectDept, departmentList);
-    var level = fetchObjectFromList(selectedLevel, levelList);
+    var faculty = fetchObjectFromList(selectedFaculty!, facultyList);
+    var dept = fetchObjectFromList(selectDept!, departmentList);
+    var level = fetchObjectFromList(selectedLevel!, levelList);
     final payload = {
       'state': state,
-      'school': schooSelected.id,
+      'school': schooSelected!.id,
       'faculty': faculty,
       'dept': dept,
       'level': level,

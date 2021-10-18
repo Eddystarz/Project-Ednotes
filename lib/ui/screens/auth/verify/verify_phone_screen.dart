@@ -118,7 +118,7 @@ Widget emailTextField()
         // contentPadding: new EdgeInsets.fromLTRB(30.0, 45.0, 20.0, 10.0),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return 'Please enter some text';
         }
         return null;

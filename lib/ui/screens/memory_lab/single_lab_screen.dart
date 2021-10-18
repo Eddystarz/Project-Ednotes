@@ -103,7 +103,7 @@ class SingleLabScreenState extends State<SingleLabScreen>
               )
           ),
           validator: (value) {
-            if (value.isEmpty) {
+            if (value!.isEmpty) {
               return 'Please enter your email';
             }
             // if(!RegExp())

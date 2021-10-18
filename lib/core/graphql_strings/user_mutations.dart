@@ -132,6 +132,7 @@ query{
 student
 {
   _id,
+  state
   dept{
     _id,
     name
