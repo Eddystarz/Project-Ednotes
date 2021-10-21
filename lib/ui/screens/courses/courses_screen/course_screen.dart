@@ -1,9 +1,19 @@
+import 'dart:io';
+
+import 'package:edtech/core/graphql.dart';
 import 'package:edtech/core/models/course.dart';
+import 'package:edtech/ui/screens/courses/courses_screen/course_provider.dart';
+// import 'package:edtech/ui/screens/courses/courses_screen/courseprovider.dart';
 import 'package:edtech/ui/screens/courses/courses_screen/courses_screen_view_model.dart';
 import 'package:edtech/ui/screens/courses/view_course_screen.dart';
 import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:edtech/core/graphql.dart ';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+//import 'package:edtech/core/graphql.dart ';
 import 'package:stacked/stacked.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,23 +26,91 @@ class CourseScreen extends StatefulWidget {
 }
 
 class CourseScreenState extends State<CourseScreen> {
+
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        initData()
+    );
+  }
+
+  initData() async {
+    getPermissionData();
+  }
+
+  getPermissionData() async{
+
+    print("PERMISSION DATA :::::");
+    print(await Permission.storage.status.isGranted);
+    if(await Permission.storage.status.isLimited == PermissionStatus.limited.isLimited){
+      await Permission.storage.request();
+
+      if(await Permission.storage.status.isGranted == PermissionStatus.granted.isGranted){
+        createFolder();
+      }
+    }else if(await Permission.storage.status.isDenied == PermissionStatus.denied.isDenied){
+      await Permission.storage.request();
+
+      if(await Permission.storage.status.isGranted == PermissionStatus.granted.isGranted){
+        createFolder();
+      }
+    }else if(await Permission.storage.status.isPermanentlyDenied == PermissionStatus.permanentlyDenied.isPermanentlyDenied){
+      await Permission.storage.request();
+
+
+      if(await Permission.storage.status.isGranted == PermissionStatus.granted.isGranted){
+        createFolder();
+      }
+    }else if(await Permission.storage.status.isGranted == PermissionStatus.granted.isGranted){
+      createFolder();
+    }
+  }
+
+
+  void createFolder() async {
+    // check if book directory exists
+    var dir = await getApplicationDocumentsDirectory();
+    print(dir.path);
+    var bookDir1 = ".notes";
+    Directory('${dir.path}/${bookDir1}').exists()
+        .then((value) {
+      print(value);
+      if(value == false){
+        Directory('${dir.path}/${bookDir1}').create(recursive: true)
+            .then((value) => print(value.path));
+      }
+    });
+
+    var bookDir2 = ".videos";
+    Directory('${dir.path}/${bookDir2}').exists()
+        .then((value) {
+      print(value);
+      if(value == false){
+        Directory('${dir.path}/${bookDir2}').create(recursive: true)
+            .then((value) => print(value.path));
+      }
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<CoursesViewModel>.reactive(
-      viewModelBuilder: () => CoursesViewModel(),
-      builder: (context, model, child) => Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(50.0),
-            child: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              backgroundColor: Theme.of(context).accentColor,
-              elevation: 0,
+    return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
             ),
+            backgroundColor: Theme.of(context).accentColor,
+            elevation: 0,
           ),
-          body: SingleChildScrollView(
+        ),
+        body: GraphQLProvider(
+          client: GraphQLConfiguration.initailizeClient(),
+          child: SingleChildScrollView(
             child: Container(
               transform: Matrix4.translationValues(0.0, -15.0, 0.0),
               // margin: EdgeInsets.only(),
@@ -42,7 +120,7 @@ class CourseScreenState extends State<CourseScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration:
-                        BoxDecoration(color: Theme.of(context).accentColor),
+                    BoxDecoration(color: Theme.of(context).accentColor),
                     height: 200,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,7 +173,7 @@ class CourseScreenState extends State<CourseScreen> {
                                       decoration: BoxDecoration(
                                           color: Colors.lightBlueAccent,
                                           borderRadius:
-                                              BorderRadius.circular(6)),
+                                          BorderRadius.circular(6)),
                                       child: Text(
                                         'All',
                                         style: TextStyle(color: Colors.white),
@@ -111,7 +189,7 @@ class CourseScreenState extends State<CourseScreen> {
                                       decoration: BoxDecoration(
                                           color: Color(0xFFF1F1F1),
                                           borderRadius:
-                                              BorderRadius.circular(6)),
+                                          BorderRadius.circular(6)),
                                       child: Text(
                                         'Physics',
                                         style: TextStyle(color: Colors.black),
@@ -127,7 +205,7 @@ class CourseScreenState extends State<CourseScreen> {
                                       decoration: BoxDecoration(
                                           color: Color(0xFFF1F1F1),
                                           borderRadius:
-                                              BorderRadius.circular(6)),
+                                          BorderRadius.circular(6)),
                                       child: Text(
                                         'Mathematics',
                                         style: TextStyle(color: Colors.black),
@@ -143,7 +221,7 @@ class CourseScreenState extends State<CourseScreen> {
                                       decoration: BoxDecoration(
                                           color: Color(0xFFF1F1F1),
                                           borderRadius:
-                                              BorderRadius.circular(6)),
+                                          BorderRadius.circular(6)),
                                       child: Text(
                                         'Chemistry',
                                         style: TextStyle(color: Colors.black),
@@ -157,132 +235,128 @@ class CourseScreenState extends State<CourseScreen> {
                             height: 40,
                           ),
                           // GraphQLProvider.of(context)
-                          GraphQLProvider(
-                            client: client,
-                            child: Query(
-                                options: QueryOptions(
-                                  document: gql(allCourses),
-                                  // fetchPolicy: FetchPolicy.networkOnly,
-                                ),
-                                builder: (QueryResult? result,
-                                    {VoidCallback? refetch,
-                                    FetchMore? fetchMore}) {
-                                  if (result!.isLoading) {
-                                    return CircularProgressIndicator();
-                                  }
-                                  if (result.hasException) {
-                                    print(result.exception.toString());
-                                    // print(MyApp.temporaryToken);
-                                    return Container(
-                                      padding: EdgeInsets.only(top: 1),
-                                      child: Text(
-                                        result.exception.toString(),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    );
-                                  }
-                                  // prefs.getString('token')
-                                  // print(result.data);
-                                  model.getCourses(result);
-                                  return ListView.builder(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: model.coursesList.length,
-                                      itemBuilder: (context, index) {
-                                        print(model.coursesList);
-                                        Course course =
-                                            model.coursesList[index];
-                                        return Column(
-                                          children: [
-                                            Container(
+                          Query(
+                              options: QueryOptions(
+                                  document: gql(Provider.of<CourseProvider>(context, listen: false).getUserCourses),
+
+                                //documentNode: gql(allCourses),
+                                // fetchPolicy: FetchPolicy.networkOnly,
+                              ),
+                              builder: (QueryResult result, {VoidCallback? refetch, FetchMore? fetchMore}) {
+                                if (result.isLoading) {
+                                  return CircularProgressIndicator();
+                                }
+                                if (result.hasException) {
+                                  print(result.exception.toString());
+                                  // print(MyApp.temporaryToken);
+                                  return Container(
+                                    padding: EdgeInsets.only(top: 1),
+                                    child: Text(
+                                      result.exception.toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  );
+                                }
+                                // prefs.getString('token')
+                                //print(result.data!['get_user_courses']['edges'][0]['_id']);
+                                //model.getCourses(result);
+                                Provider.of<CourseProvider>(context, listen: false).getCourses(result.data!['get_user_courses']);
+                                return ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    //itemCount: model.coursesList.length,
+                                    itemCount: Provider.of<CourseProvider>(context, listen: true).coursesList.length,
+                                    itemBuilder: (context, index) {
+                                      //print(model.coursesList);
+                                      Course course = Provider.of<CourseProvider>(context, listen: true).coursesList[index];
+                                      //model.coursesList[index];
+                                      return Column(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        'assets/images/aeror.png'),
+                                                    fit: BoxFit.cover),
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    30)),
+                                            height: 200,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                          ),
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                  left: 22, right: 22),
+                                              padding: EdgeInsets.only(
+                                                  top: 17, bottom: 17),
+                                              transform:
+                                              Matrix4.translationValues(
+                                                  0, -50, 0),
                                               decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/aeror.png'),
-                                                      fit: BoxFit.cover),
+                                                  color: Color(0xFFF1F1F1),
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          30)),
-                                              height: 200,
+                                                  BorderRadius.circular(
+                                                      19)),
+                                              // height: 120,
                                               width: MediaQuery.of(context)
                                                   .size
                                                   .width,
-                                            ),
-                                            Container(
-                                                margin: EdgeInsets.only(
-                                                    left: 22, right: 22),
-                                                padding: EdgeInsets.only(
-                                                    top: 17, bottom: 17),
-                                                transform:
-                                                    Matrix4.translationValues(
-                                                        0, -50, 0),
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xFFF1F1F1),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            19)),
-                                                // height: 120,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ViewCourseScreen()));
-                                                  },
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        width: 200,
-                                                        child: Wrap(
-                                                          children: [
-                                                            Center(
-                                                              child: Text(
-                                                                course.name!,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  Provider.of<CourseProvider>(context,listen: false).setSelectedCourse(course);
+                                                  Get.to(() => ViewCourseScreen());
+
+                                                },
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      width: 200,
+                                                      child: Wrap(
+                                                        children: [
+                                                          Center(
+                                                            child: Text(
+                                                              course.name!,
+                                                              style:
+                                                              TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .bold,
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      SizedBox(height: 10),
-                                                      Container(
-                                                        width: 255,
-                                                        child: Wrap(
-                                                          children: [
-                                                            Center(
-                                                              child: Text(
-                                                                course
-                                                                    .description!,
-                                                              ),
+                                                    ),
+                                                    SizedBox(height: 10),
+                                                    Container(
+                                                      width: 255,
+                                                      child: Wrap(
+                                                        children: [
+                                                          Center(
+                                                            child: Text(
+                                                              course.description!,
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ))
-                                          ],
-                                        );
-                                      });
-                                }),
-                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                        ],
+                                      );
+                                    });
+                              })
                         ],
                       )),
                 ],
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget searchWidget() {

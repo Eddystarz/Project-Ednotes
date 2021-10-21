@@ -2,9 +2,12 @@ import 'package:auto_route/auto_route.dart';
 
 // import 'package:edtech/core/services/auth_service.dart';
 import 'package:edtech/locator.dart';
+import 'package:edtech/ui/screens/courses/ttsprovider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // import 'package:edtech/Screens/login_screen.dart';
 // import 'package:edtech/Screens/change_password_screen.dart';
@@ -14,16 +17,24 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:edtech/router/router.gr.dart' as app_Router;
 
+import 'ui/screens/courses/courses_screen/course_provider.dart';
+
 // GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await dotenv.load(fileName: ".env");
   await initHiveForFlutter();
   setUp();
 
-  runApp(
-    MyApp(),
-  );
+  runApp(MultiProvider(
+    providers: [
+      // ChangeNotifierProvider(create: (context) => LoginProvider()),
+      ChangeNotifierProvider(create: (_) => CourseProvider()),
+      ChangeNotifierProvider(create: (_) => TTSProvider()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
